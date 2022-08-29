@@ -6,7 +6,10 @@ namespace Utilities
     {
         public static class Gameplay
         {
-            public static Vector2 BoardSlotSize => Vector2.one;
+            public const float BoardSlotWidth = 1f;
+            public const float BoardSlotHeight = 1f;
+            public static Vector2 BoardSlotSize = new Vector2(BoardSlotWidth, BoardSlotHeight);
+            public const float SwipeThreshold = .5f;
         }
     }
 }
