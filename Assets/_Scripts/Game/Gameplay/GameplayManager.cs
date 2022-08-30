@@ -1,4 +1,8 @@
-﻿using Game.Load;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Game.Gameplay.Item;
+using Game.Load;
 using Game.Model;
 using UnityEngine;
 
@@ -6,7 +10,9 @@ namespace Game.Gameplay
 {
     public class GameplayManager : MonoBehaviour
     {
+        [Header("Prefabs")]
         [SerializeField] private BoardSlot _BoardSlot;
+        [SerializeField] private BoardItem _BoardItem;
 
         // TODO remove static instance
         public static GameplayManager Instance;
@@ -38,14 +44,18 @@ grid: b,b,y,b,b,g,y,g,r,b,y,g,r,g,g,b,b,g,b,y,r,r,g,g,y,g,g,y,y,b,y,b,b,y,b";
                 {
                     var boardSlot = Instantiate(_BoardSlot);
                     var gridIndex = r * levelModel.GridWidth + c;
+                    
                     var itemType = levelModel.Grid[gridIndex];
-                    boardSlot.Initialize(new Vector2Int(c, r),itemType);
+                    var boardItem = Instantiate(_BoardItem);
+                    boardItem.Initialize(itemType);
+                    
+                    boardSlot.Initialize(new Vector2Int(c, r), boardItem);
                     _grid[r, c] = boardSlot;
                 }
             }
         }
 
-        public void MoveItem(Vector2Int itemPosition, Vector2Int direction)
+        public async void RequestSwipe(Vector2Int itemPosition, Vector2Int direction)
         {
             var otherItemPosition = itemPosition + direction;
             
@@ -55,12 +65,75 @@ grid: b,b,y,b,b,g,y,g,r,b,y,g,r,g,g,b,b,g,b,y,r,r,g,g,y,g,g,y,y,b,y,b,b,y,b";
             var boardSlot1 = _grid[itemPosition.y, itemPosition.x];
             var boardSlot2 = _grid[otherItemPosition.y, otherItemPosition.x];
 
-            var tempItemType = boardSlot1.ItemType;
+            if (!boardSlot1.CanSwipe || !boardSlot2.CanSwipe) return;
+
+            var boardItem1 = boardSlot1.BoardItem;
+            var boardItem2 = boardSlot2.BoardItem;
             
-            // TODO lock input for both items and items that form a row and then, animate
+            // Logically swipe items
+            boardSlot1.SetOwnedBoardItem(boardItem2);
+            boardSlot2.SetOwnedBoardItem(boardItem1);
             
-            boardSlot1.UpdateVisual(boardSlot2.ItemType);
-            boardSlot2.UpdateVisual(tempItemType);
+            // Check for new completed rows
+            var completedBoardSlots = GetBoardSlotsToBeCompleted();
+            foreach (var completedBoardSlot in completedBoardSlots)
+            {
+                completedBoardSlot.IsCompleted = true;
+            }
+            
+            // Animate swipe
+            var animationTasks = new List<Task>();
+            animationTasks.Add(boardSlot1.AnimateItemToOrigin());
+            animationTasks.Add(boardSlot2.AnimateItemToOrigin());
+
+            await Task.WhenAll(animationTasks);
+            
+            // Animate completed items
+            animationTasks.Clear();
+            foreach (var completedBoardSlot in completedBoardSlots)
+            {
+                animationTasks.Add(completedBoardSlot.AnimateComplete());
+            }
+
+            await Task.WhenAll(animationTasks);
+            
+            // TODO increase score
         }
+
+        private List<BoardSlot> GetBoardSlotsToBeCompleted()
+        {
+            var boardSlotsToBeCompleted = new List<BoardSlot>();
+            for (var r = 0; r < _levelModel.GridHeight; r++)
+            {
+                var canRowBeCompleted = true;
+                var firstItemType = _grid[r, 0].ItemType;
+                for (var c = 1; c < _levelModel.GridWidth; c++)
+                {
+                    var boardSlot = _grid[r, c];
+                    // If already completed
+                    if (boardSlot.IsCompleted)
+                    {
+                        canRowBeCompleted = false;
+                        break;
+                    }
+
+                    if (firstItemType != boardSlot.ItemType)
+                    {
+                        canRowBeCompleted = false;
+                        break;
+                    }
+                }
+
+                if (canRowBeCompleted)
+                {
+                    var items = Enumerable.Range(0, _grid.GetLength(1))
+                        .Select(x => _grid[r, x])
+                        .ToArray();
+                    boardSlotsToBeCompleted.AddRange(items);
+                }
+            }
+
+            return boardSlotsToBeCompleted;
+        } 
     }
 }

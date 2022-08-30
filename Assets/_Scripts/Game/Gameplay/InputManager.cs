@@ -35,7 +35,7 @@ namespace Game.Gameplay
 
         private void SwipeDraggingBoardSlot(Vector2Int direction)
         {
-            GameplayManager.Instance.MoveItem(_draggingBoardSlot.Index, direction);
+            GameplayManager.Instance.RequestSwipe(_draggingBoardSlot.Index, direction);
             OnEndDrag();
         }
 
