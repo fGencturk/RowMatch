@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51cade4bcc104807bee5dcec49c939ef, type: 3}
+  m_Name: LevelLoadCatalog
+  m_EditorClassIdentifier: 
+  _LevelCatalogEntries:
+  - LevelName: RM_A1
+    ContentType: 0
+  - LevelName: RM_A2
+    ContentType: 0
+  - LevelName: RM_A3
+    ContentType: 0
+  - LevelName: RM_A4
+    ContentType: 0
+  - LevelName: RM_A5
+    ContentType: 0
+  - LevelName: RM_A6
+    ContentType: 0
+  - LevelName: RM_A7
+    ContentType: 0
+  - LevelName: RM_A8
+    ContentType: 0
+  - LevelName: RM_A9
+    ContentType: 0
+  - LevelName: RM_A10
+    ContentType: 0
+  - LevelName: RM_A11
+    ContentType: 1
+  - LevelName: RM_A12
+    ContentType: 1
+  - LevelName: RM_A13
+    ContentType: 1
+  - LevelName: RM_A14
+    ContentType: 1
+  - LevelName: RM_A15
+    ContentType: 1
+  - LevelName: RM_B1
+    ContentType: 1
+  - LevelName: RM_B2
+    ContentType: 1
+  - LevelName: RM_B3
+    ContentType: 1
+  - LevelName: RM_B4
+    ContentType: 1
+  - LevelName: RM_B5
+    ContentType: 1
+  - LevelName: RM_B6
+    ContentType: 1
+  - LevelName: RM_B7
+    ContentType: 1
+  - LevelName: RM_B8
+    ContentType: 1
+  - LevelName: RM_B9
+    ContentType: 1
+  - LevelName: RM_B10
+    ContentType: 1

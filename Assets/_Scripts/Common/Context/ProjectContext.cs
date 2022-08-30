@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using Game.Data;
 using UnityEngine;
 
-namespace Common
+namespace Common.Context
 {
     public class ProjectContext : MonoBehaviour
     {
-        [SerializeField] private BoardItemSpriteCatalog _BoardItemSpriteCatalog;
 
         private Dictionary<Type, object> _context;
 
@@ -22,15 +21,25 @@ namespace Common
             }
             _singleton = this;
             _context = new Dictionary<Type, object>();
-            // TODO bind to interface?
-            // TODO create installer
-            _BoardItemSpriteCatalog.Initialize();
-            _context[_BoardItemSpriteCatalog.GetType()] = _BoardItemSpriteCatalog;
         }
 
         private void OnDestroy()
         {
             _singleton = null;
+        }
+
+        public static void BindInstance<T>(T instance)
+        {
+            BindInstanceTo<T>(instance);
+        }
+        
+        public static void BindInstanceTo<T>(object instance)
+        {
+            _singleton._context[typeof(T)] = instance;
+            if (instance is IInitializable initializable)
+            {
+                initializable.Initialize();
+            }
         }
 
         public static T GetInstance<T>()

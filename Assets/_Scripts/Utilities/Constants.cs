@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using Common.Enum;
+using UnityEngine;
 
 namespace Utilities
 {
@@ -15,6 +17,23 @@ namespace Utilities
         public static class Layers
         {
             public const string BoardSlot = "BoardSlot";
+        }
+
+        public static class Path
+        {
+            public static class Level
+            {
+                public const string LocalPath = "Levels/";
+                public const string RemotePath = "https://row-match.s3.amazonaws.com/levels/";
+                public static string RemoteCachePath = $"{Application.persistentDataPath}/Levels/";
+
+                public static readonly Dictionary<ContentType, string> ContentTypeToString =
+                    new Dictionary<ContentType, string>()
+                    {
+                        { ContentType.Local, LocalPath },
+                        { ContentType.Remote, RemotePath }
+                    };
+            }
         }
     }
 }

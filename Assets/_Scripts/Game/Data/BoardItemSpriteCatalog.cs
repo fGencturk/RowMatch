@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Game.Data
 {
     [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/BoardItemSpriteCatalog", order = 1)]
-    public class BoardItemSpriteCatalog : ScriptableObject
+    public class BoardItemSpriteCatalog : ScriptableObject, IInitializable
     {
         [Serializable]
         private class BoardItemSpriteData

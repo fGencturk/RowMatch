@@ -5,7 +5,7 @@ using System.Linq;
 using Game.Gameplay.Item;
 using Game.Model;
 
-namespace Game.Load
+namespace LevelLoad
 {
     public static class LevelDataDeserializer
     {
