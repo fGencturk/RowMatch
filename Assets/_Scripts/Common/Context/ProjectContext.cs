@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Game.Data;
 using UnityEngine;
 
 namespace Common.Context
 {
     public class ProjectContext : MonoBehaviour
     {
-
         private Dictionary<Type, object> _context;
 
         private static ProjectContext _singleton;
@@ -36,10 +34,6 @@ namespace Common.Context
         public static void BindInstanceTo<T>(object instance)
         {
             _singleton._context[typeof(T)] = instance;
-            if (instance is IInitializable initializable)
-            {
-                initializable.Initialize();
-            }
         }
 
         public static T GetInstance<T>()

@@ -35,5 +35,17 @@ namespace Utilities
                     };
             }
         }
+
+        public static class Scene
+        {
+            public const string Loader = "Loader";
+            public const string Menu = "Menu";
+            public const string Gameplay = "Gameplay";
+        }
+
+        public static class Tag
+        {
+            public const string SceneInitializer = "SceneInitializer";
+        }
     }
 }

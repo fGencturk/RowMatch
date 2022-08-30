@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Common.Enum;
+using Common.Scene.SceneEntry;
 using UnityEngine;
 
 namespace LevelLoad.Data
