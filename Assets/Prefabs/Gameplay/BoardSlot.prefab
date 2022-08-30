@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6819485312161087088}
   - component: {fileID: 6819485312161087089}
   - component: {fileID: 6804937178187957436}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BoardSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6819485313780453866}
   - component: {fileID: 6819485313780453867}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
