@@ -5,12 +5,14 @@ using UnityEngine;
 
 namespace Common.UI.LayoutGroup
 {
-    public class RMVerticalLayoutGroup : MonoBehaviour
+    public class RMVerticalLayoutGroup : MonoBehaviour, IRMUIElement
     {
+        public Vector2 Size => _size;
 
         [SerializeField] private float _SpacingBetween = .1f;
         
         private List<IRMUIElement> _elements;
+        private Vector2 _size;
 
         private void Awake()
         {
@@ -40,10 +42,12 @@ namespace Common.UI.LayoutGroup
             var lastHeight = 0f;
             foreach (var rmuiElement in _elements)
             {
-                rmuiElement.transform.position = new Vector3(0, -lastHeight);
-                lastHeight -= rmuiElement.Size.y + _SpacingBetween;
+                rmuiElement.transform.localPosition = new Vector3(0, -lastHeight);
+                lastHeight += rmuiElement.Size.y + _SpacingBetween;
             }
+
+            _size = new Vector2(_elements.Count > 0 ? _elements[0].Size.x : 0, lastHeight);
         }
-        
+
     }
 }
