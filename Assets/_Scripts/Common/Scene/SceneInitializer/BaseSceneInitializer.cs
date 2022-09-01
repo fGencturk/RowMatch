@@ -2,7 +2,7 @@
 using Common.Context;
 using UnityEngine;
 
-namespace Common.Scene.SceneEntry
+namespace Common.Scene.SceneInitializer
 {
     public abstract class BaseSceneInitializer : MonoBehaviour
     {

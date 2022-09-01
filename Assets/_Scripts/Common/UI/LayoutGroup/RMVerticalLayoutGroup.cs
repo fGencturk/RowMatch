@@ -14,12 +14,6 @@ namespace Common.UI.LayoutGroup
         private List<IRMUIElement> _elements;
         private Vector2 _size;
 
-        private void Awake()
-        {
-            Initialize();
-            Rebuild();
-        }
-
         public void Initialize()
         {
             _elements = new List<IRMUIElement>();
@@ -35,6 +29,7 @@ namespace Common.UI.LayoutGroup
                     Debug.LogError($"Root children of RMScrollView must have IRMScrollElement component. {childTransform.name} does not have one.");
                 }
             }
+            Rebuild();
         }
 
         public void Rebuild()

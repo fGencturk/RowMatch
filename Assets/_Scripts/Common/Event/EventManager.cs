@@ -33,7 +33,7 @@ namespace Common.Event
 
             public void FireEvent(T eventData)
             {
-                for (var i = Subscribers.Count; i >= 0; i--)
+                for (var i = Subscribers.Count - 1; i >= 0; i--)
                 {
                     Subscribers[i].Invoke(eventData);
                 }
@@ -48,6 +48,11 @@ namespace Common.Event
         public static void Unregister<T>(Action<T> listener) where T : IEvent
         {
             EventHandler<T>.Instance.Subscribers.Remove(listener);
+        }
+        
+        public static void Send<T>(T eventData) where T : IEvent
+        {
+            EventHandler<T>.Instance.FireEvent(eventData);
         }
 
     }

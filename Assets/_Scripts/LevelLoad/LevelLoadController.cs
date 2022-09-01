@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Common.Context;
 using Common.Enum;
+using Common.Scene.SceneInitializer;
 using Game.Model;
 using LevelLoad.Data;
 using LevelLoad.RemoteCache;
@@ -10,13 +11,13 @@ using Utilities;
 
 namespace LevelLoad
 {
-    public class LevelLoadController : MonoBehaviour
+    public class LevelLoadController : IInitializable
     {
         public List<LevelModel> Levels = new List<LevelModel>();
         
         private RemoteLevelsCache _remoteLevelsCache;
 
-        public void Awake()
+        public void Initialize()
         {
             _remoteLevelsCache = new RemoteLevelsCache();
             // Load local levels

@@ -3,8 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Game.Gameplay.Item;
 using Game.Model;
-using LevelLoad;
 using UnityEngine;
+using Utilities;
 
 namespace Game.Gameplay
 {
@@ -14,30 +14,17 @@ namespace Game.Gameplay
         [SerializeField] private BoardSlot _BoardSlot;
         [SerializeField] private BoardItem _BoardItem;
 
-        // TODO remove static instance
-        public static GameplayManager Instance;
-
         private BoardSlot[,] _grid;
         private LevelModel _levelModel;
+        private Vector2 _boardCenterPoint;
 
-        // TODO remove this
-        private void Start()
-        {
-            Instance = this;
-            var str = @"level_number: 1
-grid_width: 5
-grid_height: 7
-move_count: 20
-grid: b,b,y,b,b,g,y,g,r,b,y,g,r,g,g,b,b,g,b,y,r,r,g,g,y,g,g,y,y,b,y,b,b,y,b";
-            var levelModel = LevelDataDeserializer.LoadFromString(str);
-            StartLevel(levelModel);
-        }
-        
-        // TODO should level visual creation be here?
-        private void StartLevel(LevelModel levelModel)
+        public void StartLevel(LevelModel levelModel)
         {
             _levelModel = levelModel;
             _grid = new BoardSlot[levelModel.GridHeight, levelModel.GridWidth];
+            var centerIndexes = new Vector2(levelModel.GridWidth, levelModel.GridHeight) / 2f;
+            var halfBoardSlotSize = Constants.Gameplay.BoardSlotSize / 2f;
+            _boardCenterPoint = Vector2.Scale(Constants.Gameplay.BoardSlotSize, centerIndexes) - halfBoardSlotSize;
             for (var r = 0; r < levelModel.GridHeight; r++)
             {
                 for (var c = 0; c < levelModel.GridWidth; c++)
@@ -48,8 +35,12 @@ grid: b,b,y,b,b,g,y,g,r,b,y,g,r,g,g,b,b,g,b,y,r,r,g,g,y,g,g,y,y,b,y,b,b,y,b";
                     var itemType = levelModel.Grid[gridIndex];
                     var boardItem = Instantiate(_BoardItem);
                     boardItem.Initialize(itemType);
-                    
+
+                    var boardSlotIndex = new Vector2Int(c, r);
                     boardSlot.Initialize(new Vector2Int(c, r), boardItem);
+                    
+                    var positionRelativeToBottomLeft = Vector2.Scale(Constants.Gameplay.BoardSlotSize, boardSlotIndex);
+                    boardSlot.transform.position = -_boardCenterPoint + positionRelativeToBottomLeft;
                     _grid[r, c] = boardSlot;
                 }
             }

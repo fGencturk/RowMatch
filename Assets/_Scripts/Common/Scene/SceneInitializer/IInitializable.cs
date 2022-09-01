@@ -1,4 +1,4 @@
-﻿namespace Common.Scene.SceneEntry
+﻿namespace Common.Scene.SceneInitializer
 {
     public interface IInitializable
     {

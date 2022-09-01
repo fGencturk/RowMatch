@@ -74,9 +74,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1183150763
-  m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 2
 --- !u!222 &558175238858709940
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -173,8 +173,8 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 558175238858709943}
   m_maskType: 0
-  _SortingLayerID: -1183150763
-  _SortingOrder: 0
+  _SortingLayerID: 0
+  _SortingOrder: 2
 --- !u!1 &558175239588087526
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,6 +185,7 @@ GameObject:
   m_Component:
   - component: {fileID: 558175239588087521}
   - component: {fileID: 4687930410804743836}
+  - component: {fileID: 6467162582574486199}
   m_Layer: 0
   m_Name: LevelEntry
   m_TagString: Untagged
@@ -220,6 +221,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _SpriteRenderer: {fileID: 558175239639253633}
+--- !u!114 &6467162582574486199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558175239588087526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acac91c715c941f1bb11ee03bfe71003, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _LevelText: {fileID: 558175238858709941}
+  _HighScoreText: {fileID: 558175239817571423}
 --- !u!1 &558175239639253636
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,9 +393,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1183150763
-  m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 2
 --- !u!222 &558175239817571422
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -477,8 +492,8 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 558175239817571417}
   m_maskType: 0
-  _SortingLayerID: -1183150763
-  _SortingOrder: 0
+  _SortingLayerID: 0
+  _SortingOrder: 2
 --- !u!1 &1834115053831359875
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,9 +562,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1183150763
-  m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 9d039391eb4a01c448900882d3cb3959, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -609,7 +624,18 @@ MonoBehaviour:
   _Container: {fileID: 1834115053831359874}
   _OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6467162582574486199}
+        m_MethodName: _OnPlayButtonClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!61 &1834115055470057007
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -634,7 +660,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4, y: 1}
+  m_Size: {x: 2, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &4358700500946923909
 GameObject:
@@ -710,9 +736,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1183150763
-  m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 2
 --- !u!222 &4358700500946923906
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -809,5 +835,5 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 4358700500946923905}
   m_maskType: 0
-  _SortingLayerID: -1183150763
-  _SortingOrder: 0
+  _SortingLayerID: 0
+  _SortingOrder: 2

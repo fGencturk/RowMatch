@@ -33,14 +33,8 @@ namespace Game.Gameplay
             Index = indexes;
             BoardItem = boardItem;
             
-            var slotSize = Constants.Gameplay.BoardSlotSize;
-            slotSize.Scale(indexes);
-            
-            var myTransform = transform;
-            myTransform.position = slotSize;
-            
             var boardItemTransform = BoardItem.transform;
-            boardItemTransform.SetParent(myTransform, true);
+            boardItemTransform.SetParent(transform, true);
             boardItemTransform.localPosition = Vector3.zero;
             
             _CompletedIcon.transform.localScale = Vector3.zero;

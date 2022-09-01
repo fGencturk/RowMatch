@@ -1,19 +1,27 @@
-﻿using UnityEngine;
+﻿using Common.Context;
+using Common.Scene.SceneInitializer;
+using UnityEngine;
 using Utilities;
 
 namespace Game.Gameplay
 {
-    public class InputManager : MonoBehaviour
+    public class InputManager : MonoBehaviour, IInitializable
     {
         private BoardSlot _draggingBoardSlot;
         private Camera _camera;
         private int _boardSlotLayerMask;
         private Vector2 _initialTouchPosition;
+        private GameplayManager _gameplayManager;
 
         private void Awake()
         {
             _camera = Camera.main;
             _boardSlotLayerMask = LayerMask.GetMask(Constants.Layers.BoardSlot);
+        }
+
+        public void Initialize()
+        {
+            _gameplayManager = ProjectContext.GetInstance<GameplayManager>();
         }
 
         private void Update()
@@ -35,7 +43,7 @@ namespace Game.Gameplay
 
         private void SwipeDraggingBoardSlot(Vector2Int direction)
         {
-            GameplayManager.Instance.RequestSwipe(_draggingBoardSlot.Index, direction);
+            _gameplayManager.RequestSwipe(_draggingBoardSlot.Index, direction);
             OnEndDrag();
         }
 

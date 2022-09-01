@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using Utilities.Extensions;
 
@@ -10,7 +11,7 @@ namespace UI.Loader
         private const float FadeDuration = .2f;
         
         [SerializeField] private SpriteRenderer _Background;
-        [SerializeField] private TextMesh _Title;
+        [SerializeField] private TextMeshPro _Title;
 
         public async Task Show()
         {

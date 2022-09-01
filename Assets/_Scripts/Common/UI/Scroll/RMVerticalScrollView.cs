@@ -30,10 +30,11 @@ namespace Common.UI.Scroll
         private float ViewportHeight => _SpriteMask.bounds.max.y;
 
         public float MaxHeight => Mathf.Max(0f, ContentHeight - ViewportHeight);
+        public Transform Content => _Content;
 
         #endregion
 
-        private void Awake()
+        public void Initialize()
         {
             _contentUIElement = _Content.GetComponent<IRMUIElement>();
             _Content.transform.localPosition = new Vector3(0, ViewportHeight);
@@ -80,6 +81,11 @@ namespace Common.UI.Scroll
                 .Append(_Content.DOLocalMoveY(position, _SnapDuration).SetEase(Ease.OutSine));
         }
 
+        public void TeleportToPosition(float position)
+        {
+            _Content.localPosition = new Vector3(0, position);
+        }
+
         public async void ContinueScrolling(float lastYDelta)
         {
             lastYDelta *= _InitialScrollMultiplier;
@@ -90,11 +96,11 @@ namespace Common.UI.Scroll
             while (startTime + _ScrollDuration > Time.time)
             {
                 _Content.localPosition = new Vector3(0, _Content.localPosition.y - velocity);
-                Debug.Log(velocity);
-
                 var normalizedTime = (Time.time - startTime) / _ScrollDuration;
                 var velocityLost = _GravityCurve.Evaluate(normalizedTime) * lastYDelta;
                 velocity = lastYDelta - velocityLost;
+
+                if (velocity < float.Epsilon) break;
                 
                 await Task.Yield();
             }
