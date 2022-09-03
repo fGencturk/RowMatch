@@ -1,4 +1,5 @@
 ﻿using Common.Event;
+using Common.UI;
 using Common.UI.Window;
 using Common.UI.Window.Event;
 using DG.Tweening;
@@ -16,14 +17,24 @@ namespace UI.Menu.Windows
         private const float EndScale = 1f;
         
         [SerializeField] private TextMeshPro _Text;
-        
+        [SerializeField] private UIScaler _UIScaler;
+
+        public override void Initialize()
+        {
+            _UIScaler.Rebuild();
+        }
+
         public override void OnPreAppear(object data)
         {
             _Text.color = new Color(1f, 1f, 1f, 0);
-            _Text.transform.localScale = Vector3.one * InitialScale;
+            var textTransform = _Text.transform;
+            
+            var baseScale = textTransform.localScale;
+            textTransform.localScale = baseScale * InitialScale;
+            
             var seq = DOTween.Sequence()
                 .Append(_Text.DOFade(1f, AnimationDuration))
-                .Join(_Text.transform.DOScale(EndScale, AnimationDuration))
+                .Join(_Text.transform.DOScale(baseScale * EndScale, AnimationDuration))
                 .AppendInterval(1.5f)
                 .OnComplete(Hide);
         }

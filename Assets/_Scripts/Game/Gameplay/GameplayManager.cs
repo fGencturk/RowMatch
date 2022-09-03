@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Common.Context;
 using Common.Event;
 using Common.Scene.SceneInitializer.Bindings;
+using Common.UI;
 using Game.Gameplay.Event;
 using Game.Gameplay.Item;
 using Game.Model;
@@ -17,6 +18,11 @@ namespace Game.Gameplay
         [Header("Prefabs")]
         [SerializeField] private BoardSlot _BoardSlot;
         [SerializeField] private BoardItem _BoardItem;
+
+        [Header("UI Behaviors")] 
+        [SerializeField] private BoardSizeProvider _BoardSizeProvider;
+        [SerializeField] private UIScaler _UIScaler;
+        [SerializeField] private UIPositioner _UIPositioner;
 
         private BoardSlot[,] _grid;
         private LevelModel _levelModel;
@@ -40,14 +46,16 @@ namespace Game.Gameplay
             _levelModel = levelModel;
             _currentMoveCount = levelModel.MoveCount;
             _grid = new BoardSlot[levelModel.GridHeight, levelModel.GridWidth];
-            var centerIndexes = new Vector2(levelModel.GridWidth, levelModel.GridHeight) / 2f;
+
+            var gridSize = new Vector2(levelModel.GridWidth, levelModel.GridHeight);
+            var centerIndexes = gridSize / 2f;
             var halfBoardSlotSize = Constants.Gameplay.BoardSlotSize / 2f;
             _boardCenterPoint = Vector2.Scale(Constants.Gameplay.BoardSlotSize, centerIndexes) - halfBoardSlotSize;
             for (var r = 0; r < levelModel.GridHeight; r++)
             {
                 for (var c = 0; c < levelModel.GridWidth; c++)
                 {
-                    var boardSlot = Instantiate(_BoardSlot);
+                    var boardSlot = Instantiate(_BoardSlot, transform);
                     var gridIndex = r * levelModel.GridWidth + c;
                     
                     var itemType = levelModel.Grid[gridIndex];
@@ -62,6 +70,10 @@ namespace Game.Gameplay
                     _grid[r, c] = boardSlot;
                 }
             }
+
+            _BoardSizeProvider.GridSize = gridSize;
+            _UIScaler.Rebuild();
+            _UIPositioner.Rebuild();
             EventManager.Send(LevelStartedEvent.Create(levelModel));
         }
 

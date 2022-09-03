@@ -1,6 +1,7 @@
 ﻿using Common.Event;
 using Common.Save;
 using Common.Scene.Event;
+using Common.UI;
 using Game.Data;
 using LevelLoad;
 using LevelLoad.Data;
@@ -17,6 +18,7 @@ namespace Common.Scene.SceneInitializer
 
         protected override void InstallBindings()
         {
+            UIHelper2D.Initialize();
             BindInstance(_BoardItemSpriteCatalog);
             BindInstance(_LevelLoadCatalog);
             BindInstance(_LoadingView);

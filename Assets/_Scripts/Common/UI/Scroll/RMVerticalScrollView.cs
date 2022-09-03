@@ -21,10 +21,10 @@ namespace Common.UI.Scroll
         [Header("Overshoot")]
         [SerializeField] private float _MaxOvershoot = 1.5f;
 
-        private List<IRMUIElement> _elements;
+        private List<BaseUISizeProvider> _elements;
         private Vector3 _lastMousePosition;
         private Camera _camera;
-        private IRMUIElement _contentUIElement;
+        private BaseUISizeProvider _contentUIElement;
         private float _velocity;
 
         private Sequence _snapSequence;
@@ -42,7 +42,7 @@ namespace Common.UI.Scroll
 
         public void Initialize()
         {
-            _contentUIElement = _Content.GetComponent<IRMUIElement>();
+            _contentUIElement = _Content.GetComponent<BaseUISizeProvider>();
             _Content.transform.localPosition = new Vector3(0, ViewportHeight);
             _camera = Camera.main;
         }

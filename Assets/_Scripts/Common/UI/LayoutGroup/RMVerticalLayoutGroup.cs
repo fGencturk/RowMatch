@@ -5,14 +5,14 @@ using UnityEngine;
 
 namespace Common.UI.LayoutGroup
 {
-    public class RMVerticalLayoutGroup : MonoBehaviour, IRMUIElement
+    public class RMVerticalLayoutGroup : BaseUISizeProvider
     {
-        public Vector2 Size => _size;
+        protected override Vector2 BaseSize => _size;
 
         [SerializeField] private float _SpacingBetween = .1f;
         [SerializeField] private bool _AutoInitialize = true;
         
-        private List<IRMUIElement> _elements;
+        private List<BaseUISizeProvider> _elements;
         private Vector2 _size;
 
         private void Awake()
@@ -25,11 +25,11 @@ namespace Common.UI.LayoutGroup
 
         public void Initialize()
         {
-            _elements = new List<IRMUIElement>();
+            _elements = new List<BaseUISizeProvider>();
             for (int i = 0; i < transform.childCount; i++)
             {
                 var childTransform = transform.GetChild(i);
-                if (childTransform.TryGetComponent<IRMUIElement>(out var scrollElement))
+                if (childTransform.TryGetComponent<BaseUISizeProvider>(out var scrollElement))
                 {
                     _elements.Add(scrollElement);
                 }
