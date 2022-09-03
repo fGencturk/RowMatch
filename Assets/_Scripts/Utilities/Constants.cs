@@ -26,6 +26,11 @@ namespace Utilities
             }
         }
 
+        public static class Level
+        {
+            public const int MinimumLevelNumber = 1;
+        }
+
         public static class Layers
         {
             public const string BoardSlot = "BoardSlot";

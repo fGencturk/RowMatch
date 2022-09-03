@@ -98,7 +98,7 @@
       <workItem from="1661856391100" duration="23129000" />
       <workItem from="1662051929337" duration="13839000" />
       <workItem from="1662136535173" duration="1209000" />
-      <workItem from="1662196183638" duration="11385000" />
+      <workItem from="1662196183638" duration="14188000" />
     </task>
     <servers />
   </component>
@@ -123,6 +123,23 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/_Scripts/Common/Context/ProjectContext.cs</url>
+          <line>45</line>
+          <properties documentPath="C:\Users\Gencturk\RowMatch\Assets\_Scripts\Common\Context\ProjectContext.cs" initialLine="45" containingFunctionPresentation="method 'RemoteInstanceFrom'">
+            <startOffsets>
+              <option value="1072" />
+            </startOffsets>
+            <endOffsets>
+              <option value="1110" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="UNITY_DEBUG_RUN_CONFIGURATION">
         <watch expression="totalVelocityLostDueToTime" />

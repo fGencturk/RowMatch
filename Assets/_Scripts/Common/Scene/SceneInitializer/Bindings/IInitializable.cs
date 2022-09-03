@@ -1,4 +1,4 @@
-﻿namespace Common.Scene.SceneInitializer
+﻿namespace Common.Scene.SceneInitializer.Bindings
 {
     public interface IInitializable
     {

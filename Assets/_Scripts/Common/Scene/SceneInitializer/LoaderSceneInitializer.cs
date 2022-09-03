@@ -1,4 +1,5 @@
 ﻿using Common.Event;
+using Common.Save;
 using Common.Scene.Event;
 using Game.Data;
 using LevelLoad;
@@ -21,6 +22,7 @@ namespace Common.Scene.SceneInitializer
             BindInstance(_LoadingView);
             BindInstance(new SceneLoadController());
             BindInstance(new LevelLoadController());
+            BindInstance(new PlayerData());
         }
 
         protected override void Initialize()

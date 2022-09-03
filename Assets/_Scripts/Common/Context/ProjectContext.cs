@@ -21,11 +21,6 @@ namespace Common.Context
             _context = new Dictionary<Type, object>();
         }
 
-        private void OnDestroy()
-        {
-            _singleton = null;
-        }
-
         public static void BindInstance<T>(T instance)
         {
             BindInstanceTo<T>(instance);
@@ -34,6 +29,16 @@ namespace Common.Context
         public static void BindInstanceTo<T>(object instance)
         {
             _singleton._context[typeof(T)] = instance;
+        }
+
+        public static void RemoveInstance<T>(T instance)
+        {
+            RemoteInstanceFrom<T>(instance);
+        }
+
+        public static void RemoteInstanceFrom<T>(object instance)
+        {
+            _singleton._context.Remove(typeof(T));
         }
 
         public static T GetInstance<T>()

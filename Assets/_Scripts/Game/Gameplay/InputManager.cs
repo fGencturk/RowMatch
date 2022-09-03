@@ -1,5 +1,5 @@
 ﻿using Common.Context;
-using Common.Scene.SceneInitializer;
+using Common.Scene.SceneInitializer.Bindings;
 using UnityEngine;
 using Utilities;
 

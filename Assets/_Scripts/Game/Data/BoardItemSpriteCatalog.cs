@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Common.Scene.SceneInitializer;
+using Common.Scene.SceneInitializer.Bindings;
 using Game.Gameplay.Item;
 using UnityEngine;
 

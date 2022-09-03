@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using Common.Event;
-using Common.Scene.SceneInitializer;
+using Common.Scene.SceneInitializer.Bindings;
 using Game.Gameplay.Event;
 using Utilities;
 
 namespace Game.Gameplay
 {
-    public class ScoreManager : IInitializable
+    public class ScoreManager : IInitializable, IDisposable
     {
         public bool HighScoreReached { get; private set; }
         public int CurrentScore { get; private set; }
@@ -15,6 +15,11 @@ namespace Game.Gameplay
         {
             EventManager.Register<PreSwapPerformedEvent>(OnPreSwapPerformedEvent);
         }
+        
+        public void Dispose()
+        {
+            EventManager.Unregister<PreSwapPerformedEvent>(OnPreSwapPerformedEvent);
+        }
 
         private void OnPreSwapPerformedEvent(PreSwapPerformedEvent data)
         {
@@ -22,5 +27,6 @@ namespace Game.Gameplay
             CurrentScore += gainedScore;
             EventManager.Send<ScoreGainedEvent>(ScoreGainedEvent.Create(gainedScore, CurrentScore));
         }
+
     }
 }

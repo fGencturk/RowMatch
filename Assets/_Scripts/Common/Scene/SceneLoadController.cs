@@ -3,6 +3,7 @@ using Common.Context;
 using Common.Event;
 using Common.Scene.Event;
 using Common.Scene.SceneInitializer;
+using Common.Scene.SceneInitializer.Bindings;
 using Common.UI.Window.Event;
 using Game.Gameplay;
 using UI.Loader;
@@ -12,7 +13,7 @@ using Utilities;
 
 namespace Common.Scene
 {
-    public class SceneLoadController : IInitializable
+    public class SceneLoadController : IInitializable, IDisposable
     {
         private LoadingView _loadingView;
         private string _lastSceneName;
@@ -22,6 +23,12 @@ namespace Common.Scene
             _loadingView = ProjectContext.GetInstance<LoadingView>();
             EventManager.Register<OpenGameSceneEvent>(LoadGame);
             EventManager.Register<OpenMenuSceneEvent>(LoadMenu);
+        }
+
+        public void Dispose()
+        {
+            EventManager.Unregister<OpenGameSceneEvent>(LoadGame);
+            EventManager.Unregister<OpenMenuSceneEvent>(LoadMenu);
         }
         
         private async void LoadGame(OpenGameSceneEvent data)

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Context;
 using Common.Event;
-using Common.Scene.SceneInitializer;
+using Common.Scene.SceneInitializer.Bindings;
 using Game.Gameplay.Event;
 using Game.Gameplay.Item;
 using Game.Model;

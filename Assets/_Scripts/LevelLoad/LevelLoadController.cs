@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Common.Context;
 using Common.Enum;
-using Common.Scene.SceneInitializer;
+using Common.Scene.SceneInitializer.Bindings;
 using Game.Model;
 using LevelLoad.Data;
 using LevelLoad.RemoteCache;

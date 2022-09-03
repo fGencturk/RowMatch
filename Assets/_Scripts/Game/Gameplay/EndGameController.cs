@@ -1,6 +1,6 @@
 ﻿using Common.Event;
 using Common.Scene.Event;
-using Common.Scene.SceneInitializer;
+using Common.Scene.SceneInitializer.Bindings;
 using Common.UI.Window.Event;
 using Game.Gameplay.Event;
 using UI.Menu.Windows;
