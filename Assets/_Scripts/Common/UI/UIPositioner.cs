@@ -22,8 +22,6 @@ namespace Common.UI
         public void Rebuild()
         {
             var uiElement = GetComponent<BaseUISizeProvider>();
-            
-            // TODO this assumes every element's original pivot in its center;
             var pivotTranslate = new Vector2((.5f - _Pivot.x) * uiElement.Size.x, (.5f - _Pivot.y) * uiElement.Size.y);
 
             var anchorWorldPosition = UIHelper2D.AnchorToWorldPoint(_AnchorX, _AnchorY);

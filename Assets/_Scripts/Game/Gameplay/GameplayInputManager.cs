@@ -63,7 +63,6 @@ namespace Game.Gameplay
             if (_draggingBoardSlot == null) return;
 
             var deltaSinceBegin = screenPosition - _initialTouchPosition;
-            // TODO calculate threshold size
             var threshold = Constants.Gameplay.SwipeThreshold;
             if (deltaSinceBegin.x > threshold)
             {
