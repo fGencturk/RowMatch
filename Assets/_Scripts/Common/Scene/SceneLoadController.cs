@@ -44,7 +44,14 @@ namespace Common.Scene
             await _loadingView.Hide();
             if (data.TriggeredFromGame)
             {
-                EventManager.Send(OpenWindowEvent.Create<CelebrationWindow>(data.GameEndEvent));
+                if (data.GameEndEvent.HighScoreReached)
+                {
+                    EventManager.Send(OpenWindowEvent.Create<CelebrationWindow>(data.GameEndEvent));
+                }
+                else
+                {
+                    EventManager.Send(OpenWindowEvent.Create<LevelsWindow>(data.GameEndEvent));
+                }
             }
         }
 
