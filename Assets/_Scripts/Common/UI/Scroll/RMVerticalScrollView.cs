@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using Common.UI.Element;
 using DG.Tweening;
 using UnityEngine;
@@ -17,17 +18,22 @@ namespace Common.UI.Scroll
         [SerializeField] private float _ScrollDuration = .5f;
         [SerializeField] private float _InitialScrollMultiplier = .3f;
         [SerializeField] private AnimationCurve _GravityCurve = AnimationCurve.Linear(0f, 1f, 0f, 1f);
+        [Header("Overshoot")]
+        [SerializeField] private float _MaxOvershoot = 1.5f;
 
         private List<IRMUIElement> _elements;
-        private Sequence _snapSequence;
         private Vector3 _lastMousePosition;
         private Camera _camera;
         private IRMUIElement _contentUIElement;
+        private float _velocity;
 
+        private Sequence _snapSequence;
+        private CancellationTokenSource _scrollCancellationTokenSource;
+        
         #region Properties
 
         private float ContentHeight => _contentUIElement.Size.y;
-        private float ViewportHeight => _SpriteMask.bounds.max.y;
+        private float ViewportHeight => _SpriteMask.bounds.size.y;
 
         public float MaxHeight => Mathf.Max(0f, ContentHeight - ViewportHeight);
         public Transform Content => _Content;
@@ -41,9 +47,43 @@ namespace Common.UI.Scroll
             _camera = Camera.main;
         }
 
+        private void SetPosition(float velocity)
+        {
+            _velocity = velocity;
+            ApplyGravityToVelocityIfOvershoot();
+
+            var localPosition = _Content.localPosition;
+            _Content.localPosition = new Vector3(localPosition.x, localPosition.y + _velocity);
+        }
+
+        private void ApplyGravityToVelocityIfOvershoot()
+        {
+            var velocity = _velocity;
+            float GetSlowedVelocityDueToOvershoot(float remainingOvershoot)
+            {
+                var velocityMultiplier = remainingOvershoot / _MaxOvershoot;
+                return velocity * velocityMultiplier;
+            }
+            
+            var localPosition = _Content.localPosition;
+            
+            // If already overshoot and also scrolling in overshoot direction
+            if (localPosition.y < 0 && velocity < 0)
+            {
+                var remainingOvershoot = Mathf.Max(0f, _MaxOvershoot - Mathf.Abs(localPosition.y));
+                _velocity = GetSlowedVelocityDueToOvershoot(remainingOvershoot);
+            } else if (localPosition.y > MaxHeight && velocity > 0)
+            {
+                var remainingOvershoot = Mathf.Max(0f, _MaxOvershoot - Mathf.Abs(localPosition.y - MaxHeight));
+                _velocity = GetSlowedVelocityDueToOvershoot(remainingOvershoot);
+            }
+        }
+
+        #region Input Events
+
         private void OnMouseDown()
         {
-            _snapSequence?.Kill();
+            KillAllAnimations();
             _lastMousePosition = _camera.ScreenToWorldPoint(Input.mousePosition);;
         }
 
@@ -51,7 +91,7 @@ namespace Common.UI.Scroll
         {
             var mouseWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
             var delta = _lastMousePosition - mouseWorldPosition;
-            _Content.localPosition = new Vector3(0, _Content.localPosition.y - delta.y);
+            SetPosition(-delta.y);
             _lastMousePosition = mouseWorldPosition;
         }
 
@@ -63,9 +103,16 @@ namespace Common.UI.Scroll
             ContinueScrolling(delta.y);
         }
 
+        #endregion
+
+        private bool IsOutsideVisibleArea()
+        {
+            var localPosition = _Content.localPosition;
+            return localPosition.y < 0 || localPosition.y > MaxHeight;
+        }
         private bool ClampContentPosition()
         {
-            if (_Content.localPosition.y < 0 || _Content.localPosition.y > MaxHeight)
+            if (IsOutsideVisibleArea())
             {
                 SnapToPosition(Mathf.Clamp(_Content.localPosition.y, 0f, MaxHeight));
                 return true;
@@ -73,41 +120,70 @@ namespace Common.UI.Scroll
 
             return false;
         }
+        
+        public void TeleportToPosition(float position)
+        {
+            KillAllAnimations();
+            _Content.localPosition = new Vector3(_Content.localPosition.x, position);
+        }
 
-        public void SnapToPosition(float position)
+        #region Animations
+
+        private void KillAllAnimations()
         {
             _snapSequence?.Kill();
+            _snapSequence = null;
+            _scrollCancellationTokenSource?.Cancel();
+            _scrollCancellationTokenSource = null;
+        }
+        
+        public void SnapToPosition(float position)
+        {
+            KillAllAnimations();
             _snapSequence = DOTween.Sequence()
                 .Append(_Content.DOLocalMoveY(position, _SnapDuration).SetEase(Ease.OutSine));
         }
-
-        public void TeleportToPosition(float position)
+        
+        private async void ContinueScrolling(float last)
         {
-            _Content.localPosition = new Vector3(0, position);
-        }
-
-        public async void ContinueScrolling(float lastYDelta)
-        {
-            lastYDelta *= _InitialScrollMultiplier;
+            KillAllAnimations();
+            _scrollCancellationTokenSource = new CancellationTokenSource();
+            var token = _scrollCancellationTokenSource.Token;
+            
             _snapSequence?.Kill();
             var startTime = Time.time;
-            var velocity = lastYDelta;
+
+            _velocity = -last * _InitialScrollMultiplier;
+            var initialVelocity = _velocity;
+            var totalVelocityLostDueToOvershoot = 0f;
             
             while (startTime + _ScrollDuration > Time.time)
             {
-                _Content.localPosition = new Vector3(0, _Content.localPosition.y - velocity);
-                var normalizedTime = (Time.time - startTime) / _ScrollDuration;
-                var velocityLost = _GravityCurve.Evaluate(normalizedTime) * lastYDelta;
-                velocity = lastYDelta - velocityLost;
-
-                if (velocity < float.Epsilon) break;
+                var requestedVelocity = _velocity;
+                SetPosition(requestedVelocity);
+                var appliedVelocity = _velocity;
                 
+                var normalizedTime = (Time.time - startTime) / _ScrollDuration;
+                var totalVelocityLostDueToTime = -_GravityCurve.Evaluate(normalizedTime) * initialVelocity;
+                totalVelocityLostDueToOvershoot += appliedVelocity - requestedVelocity;
+
+                var totalVelocityLost = totalVelocityLostDueToTime + totalVelocityLostDueToOvershoot;
+                if (Mathf.Abs(totalVelocityLost) > Mathf.Abs(_velocity)) break;
+                
+                _velocity = initialVelocity + totalVelocityLost;
+                
+                if (Mathf.Abs(_velocity) < float.Epsilon) break;
+
                 await Task.Yield();
+                if (token.IsCancellationRequested) return;
             }
 
             ClampContentPosition();
 
         }
+
+        #endregion
+
         
     }
 }

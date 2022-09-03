@@ -13,6 +13,8 @@ namespace Common.Scene.SceneInitializer
         {
             BindInstance(_GameplayManager);
             BindInstance(_InputManager);
+            BindInstance(new ScoreManager());
+            BindInstance(new EndGameController());
         }
 
         protected override void Initialize() { }

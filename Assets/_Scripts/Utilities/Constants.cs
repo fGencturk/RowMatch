@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Common.Enum;
+using Game.Gameplay.Item;
 using UnityEngine;
 
 namespace Utilities
@@ -12,6 +13,17 @@ namespace Utilities
             public const float BoardSlotHeight = 1f;
             public static Vector2 BoardSlotSize = new Vector2(BoardSlotWidth, BoardSlotHeight);
             public const float SwipeThreshold = 20;
+
+            public static class Score
+            {
+                public static Dictionary<ItemType, int> ItemTypeToScore = new Dictionary<ItemType, int>()
+                {
+                    { ItemType.Red, 100 },
+                    { ItemType.Green, 150 },
+                    { ItemType.Blue, 200 },
+                    { ItemType.Yellow, 250 }
+                };
+            }
         }
 
         public static class Layers

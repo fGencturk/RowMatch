@@ -14,9 +14,9 @@ namespace Common.UI.Window
         [SerializeField] private Transform _Content;
 
         private Dictionary<Type, Window> _typeToWindow;
-        private Window _activeWindow;
+        public Window ActiveWindow { get; private set; }
 
-        private void Awake()
+        public void Awake()
         {
             EventManager.Register<OpenWindowEvent>(OnOpenWindowRequested);
             EventManager.Register<CloseWindowEvent>(OnCloseWindowRequested);
@@ -34,6 +34,12 @@ namespace Common.UI.Window
             _Blocker.OnClick.AddListener(CloseActiveWindow);
         }
 
+        private void OnDestroy()
+        {
+            EventManager.Unregister<OpenWindowEvent>(OnOpenWindowRequested);
+            EventManager.Unregister<CloseWindowEvent>(OnCloseWindowRequested);
+        }
+
         private void OnOpenWindowRequested(OpenWindowEvent data)
         {
             if (!_typeToWindow.ContainsKey(data.Type))
@@ -47,12 +53,12 @@ namespace Common.UI.Window
             _Blocker.Show();
             window.OnPreAppear();
             window.gameObject.SetActive(true);
-            _activeWindow = window;
+            ActiveWindow = window;
         }
 
         private void OnCloseWindowRequested(CloseWindowEvent data)
         {
-            if (_activeWindow == null || _activeWindow.GetType() != data.Type)
+            if (ActiveWindow == null || ActiveWindow.GetType() != data.Type)
             {
                 Debug.LogError($"{data.Type} is not active window.");
                 return;
@@ -64,8 +70,8 @@ namespace Common.UI.Window
         {
             _Blocker.Hide();
             _Blocker.Interactable = false;
-            _activeWindow.gameObject.SetActive(false);
-            _activeWindow = null;
+            ActiveWindow.gameObject.SetActive(false);
+            ActiveWindow = null;
         }
     }
 }

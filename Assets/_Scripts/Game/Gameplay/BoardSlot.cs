@@ -21,9 +21,10 @@ namespace Game.Gameplay
         
         public Vector2Int Index { get; private set; }
         public bool IsCompleted { get; set; }
+        public bool IsLocked { get; set; }
         public bool IsAnimating { get; private set; }
         public BoardItem BoardItem { get; private set; }
-        public bool CanSwipe => !IsCompleted && !IsAnimating;
+        public bool CanSwipe => !IsCompleted && !IsAnimating && !IsLocked;
         public ItemType ItemType => BoardItem.ItemType;
 
         #endregion

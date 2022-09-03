@@ -1,6 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Common.Context;
+using Common.Event;
+using Common.Scene.SceneInitializer;
+using Game.Gameplay.Event;
 using Game.Gameplay.Item;
 using Game.Model;
 using UnityEngine;
@@ -8,7 +13,7 @@ using Utilities;
 
 namespace Game.Gameplay
 {
-    public class GameplayManager : MonoBehaviour
+    public class GameplayManager : MonoBehaviour, IInitializable
     {
         [Header("Prefabs")]
         [SerializeField] private BoardSlot _BoardSlot;
@@ -17,10 +22,24 @@ namespace Game.Gameplay
         private BoardSlot[,] _grid;
         private LevelModel _levelModel;
         private Vector2 _boardCenterPoint;
+        private int _currentMoveCount;
+        private EndGameChecker _endGameChecker;
+        private ScoreManager _scoreManager;
+
+        private void Awake()
+        {
+            _endGameChecker = new EndGameChecker();
+        }
+
+        public void Initialize()
+        {
+            _scoreManager = ProjectContext.GetInstance<ScoreManager>();
+        }
 
         public void StartLevel(LevelModel levelModel)
         {
             _levelModel = levelModel;
+            _currentMoveCount = levelModel.MoveCount;
             _grid = new BoardSlot[levelModel.GridHeight, levelModel.GridWidth];
             var centerIndexes = new Vector2(levelModel.GridWidth, levelModel.GridHeight) / 2f;
             var halfBoardSlotSize = Constants.Gameplay.BoardSlotSize / 2f;
@@ -44,6 +63,7 @@ namespace Game.Gameplay
                     _grid[r, c] = boardSlot;
                 }
             }
+            EventManager.Send(LevelStartedEvent.Create(levelModel));
         }
 
         public async void RequestSwipe(Vector2Int itemPosition, Vector2Int direction)
@@ -64,12 +84,22 @@ namespace Game.Gameplay
             // Logically swipe items
             boardSlot1.SetOwnedBoardItem(boardItem2);
             boardSlot2.SetOwnedBoardItem(boardItem1);
+            _currentMoveCount--;
             
             // Check for new completed rows
             var completedBoardSlots = GetBoardSlotsToBeCompleted();
             foreach (var completedBoardSlot in completedBoardSlots)
             {
                 completedBoardSlot.IsCompleted = true;
+            }
+
+            EventManager.Send(PreSwapPerformedEvent.Create(_currentMoveCount, completedBoardSlots));
+
+            var gameEnded = !_endGameChecker.CanMatchAnyRow(_grid, _currentMoveCount);
+            if (gameEnded)
+            {
+                // Send PreGameEndEvent here if needed
+                LockAllBoardSlots();
             }
             
             // Animate swipe
@@ -87,8 +117,22 @@ namespace Game.Gameplay
             }
 
             await Task.WhenAll(animationTasks);
-            
-            // TODO increase score
+
+            if (gameEnded)
+            {
+                EventManager.Send(GameEndEvent.Create(_levelModel, _scoreManager.CurrentScore, _scoreManager.HighScoreReached));
+            }
+        }
+
+        private void LockAllBoardSlots()
+        {
+            for (var r = 0; r < _levelModel.GridHeight; r++)
+            {
+                for (var c = 0; c < _levelModel.GridWidth; c++)
+                {
+                    _grid[r, c].IsLocked = true;
+                }
+            }
         }
 
         private List<BoardSlot> GetBoardSlotsToBeCompleted()
@@ -125,6 +169,6 @@ namespace Game.Gameplay
             }
 
             return boardSlotsToBeCompleted;
-        } 
+        }
     }
 }

@@ -21,6 +21,7 @@ namespace Common.Scene.SceneInitializer
             Initialize();
         }
 
+        // TODO keep record of binded instances and remove them OnDestroy
         protected void BindInstance<T>(T instance)
         {
             ProjectContext.BindInstance(instance);

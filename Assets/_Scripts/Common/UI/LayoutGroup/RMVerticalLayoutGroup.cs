@@ -10,9 +10,18 @@ namespace Common.UI.LayoutGroup
         public Vector2 Size => _size;
 
         [SerializeField] private float _SpacingBetween = .1f;
+        [SerializeField] private bool _AutoInitialize = true;
         
         private List<IRMUIElement> _elements;
         private Vector2 _size;
+
+        private void Awake()
+        {
+            if (_AutoInitialize)
+            {
+                Initialize();
+            }
+        }
 
         public void Initialize()
         {
