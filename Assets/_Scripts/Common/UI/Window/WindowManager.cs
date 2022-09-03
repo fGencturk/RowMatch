@@ -25,7 +25,7 @@ namespace Common.UI.Window
             // Eagerly instantiate one instance for each window
             foreach (var windowPrefab in _WindowPrefabs)
             {
-                var window = Instantiate(windowPrefab, Vector3.zero, Quaternion.identity, _Content);
+                var window = Instantiate(windowPrefab, _Content);
                 _typeToWindow[windowPrefab.GetType()] = window;
                 window.Initialize();
                 window.gameObject.SetActive(false);

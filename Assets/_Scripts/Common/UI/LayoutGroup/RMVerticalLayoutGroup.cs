@@ -7,7 +7,7 @@ namespace Common.UI.LayoutGroup
 {
     public class RMVerticalLayoutGroup : BaseUISizeProvider
     {
-        protected override Vector2 BaseSize => _size;
+        public override Vector2 BaseSize => _size;
 
         [SerializeField] private float _SpacingBetween = .1f;
         [SerializeField] private bool _AutoInitialize = true;
@@ -47,10 +47,10 @@ namespace Common.UI.LayoutGroup
             foreach (var rmuiElement in _elements)
             {
                 rmuiElement.transform.localPosition = new Vector3(0, -lastHeight);
-                lastHeight += rmuiElement.Size.y + _SpacingBetween;
+                lastHeight += rmuiElement.BaseSize.y + _SpacingBetween;
             }
 
-            _size = new Vector2(_elements.Count > 0 ? _elements[0].Size.x : 0, lastHeight);
+            _size = new Vector2(_elements.Count > 0 ? _elements[0].BaseSize.x : 0, lastHeight);
         }
 
     }

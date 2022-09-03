@@ -7,6 +7,6 @@ namespace Game.Gameplay
     public class BoardSizeProvider : BaseUISizeProvider
     {
         public Vector2 GridSize { get; set; }
-        protected override Vector2 BaseSize => Vector2.Scale(GridSize, Constants.Gameplay.BoardSlotSize);
+        public override Vector2 BaseSize => Vector2.Scale(GridSize, Constants.Gameplay.BoardSlotSize);
     }
 }

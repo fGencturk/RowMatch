@@ -302,6 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _SpriteRenderer: {fileID: 558175239639253633}
+  _Padding: {x: 0, y: 0}
 --- !u!114 &6467162582574486199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -685,7 +686,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1834115055470057010}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1834115053831359874}
@@ -704,6 +705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25a1a434a0e54b18b547250b8a995ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ConsumeEvents: 0
   _Container: {fileID: 1834115053831359874}
   _OnClick:
     m_PersistentCalls:
@@ -729,7 +731,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

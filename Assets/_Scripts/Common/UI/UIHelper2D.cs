@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Common.Context;
+using UnityEngine;
 
 namespace Common.UI
 {
@@ -10,7 +11,7 @@ namespace Common.UI
 
         public static void Initialize()
         {
-            var camera = Camera.main;
+            var camera = ProjectContext.GetInstance<Camera>();
             _min = camera.ScreenToWorldPoint(Vector3.zero);
             _max = camera.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
             _diff = _max - _min;

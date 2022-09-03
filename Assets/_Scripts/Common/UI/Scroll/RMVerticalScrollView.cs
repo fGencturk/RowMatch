@@ -4,13 +4,16 @@ using Common.UI.Element;
 using DG.Tweening;
 using UnityEngine;
 using System.Threading.Tasks;
+using Common.Context;
+using Common.InputSystem;
+using Common.InputSystem.Handlers;
 
 namespace Common.UI.Scroll
 {
-    public class RMVerticalScrollView : MonoBehaviour
+    public class RMVerticalScrollView : MonoBehaviour, IClickable, IDraggable
     {
 
-        [SerializeField] private SpriteMask _SpriteMask;
+        [SerializeField] private BaseUISizeProvider _ViewPortSizeProvider;
         [SerializeField] private Transform _Content;
 
         [Header("Animation Properties")] 
@@ -32,8 +35,8 @@ namespace Common.UI.Scroll
         
         #region Properties
 
-        private float ContentHeight => _contentUIElement.Size.y;
-        private float ViewportHeight => _SpriteMask.bounds.size.y;
+        private float ContentHeight => _contentUIElement.BaseSize.y;
+        private float ViewportHeight => _ViewPortSizeProvider.BaseSize.y;
 
         public float MaxHeight => Mathf.Max(0f, ContentHeight - ViewportHeight);
         public Transform Content => _Content;
@@ -44,7 +47,7 @@ namespace Common.UI.Scroll
         {
             _contentUIElement = _Content.GetComponent<BaseUISizeProvider>();
             _Content.transform.localPosition = new Vector3(0, ViewportHeight);
-            _camera = Camera.main;
+            _camera = ProjectContext.GetInstance<Camera>();
         }
 
         private void SetPosition(float velocity)
@@ -81,26 +84,26 @@ namespace Common.UI.Scroll
 
         #region Input Events
 
-        private void OnMouseDown()
+        public void OnTouchDown(EventData eventData)
         {
             KillAllAnimations();
             _lastMousePosition = _camera.ScreenToWorldPoint(Input.mousePosition);;
         }
 
-        private void OnMouseDrag()
-        {
-            var mouseWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-            var delta = _lastMousePosition - mouseWorldPosition;
-            SetPosition(-delta.y);
-            _lastMousePosition = mouseWorldPosition;
-        }
-
-        private void OnMouseUp()
+        public void OnTouchUp(EventData eventData)
         {
             //if (ClampContentPosition()) return;
             var mouseWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
             var delta = _lastMousePosition - mouseWorldPosition;
             ContinueScrolling(delta.y);
+        }
+
+        public void OnDrag(EventData eventData)
+        {
+            var mouseWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+            var delta = _lastMousePosition - mouseWorldPosition;
+            SetPosition(-delta.y);
+            _lastMousePosition = mouseWorldPosition;
         }
 
         #endregion
@@ -125,6 +128,11 @@ namespace Common.UI.Scroll
         {
             KillAllAnimations();
             _Content.localPosition = new Vector3(_Content.localPosition.x, position);
+        }
+
+        public void TeleportToElementIndex(int index)
+        {
+            
         }
 
         #region Animations
@@ -183,7 +191,5 @@ namespace Common.UI.Scroll
         }
 
         #endregion
-
-        
     }
 }

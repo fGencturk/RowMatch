@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3856369033585328905, guid: 1d9a012d3409fd941ba10ccd8c7004f9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 3856369033923206986, guid: 1d9a012d3409fd941ba10ccd8c7004f9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -65,7 +70,7 @@ PrefabInstance:
     - target: {fileID: 3856369033923206987, guid: 1d9a012d3409fd941ba10ccd8c7004f9,
         type: 3}
       propertyPath: m_Name
-      value: WindowManager
+      value: WindowManagerMenu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d9a012d3409fd941ba10ccd8c7004f9, type: 3}

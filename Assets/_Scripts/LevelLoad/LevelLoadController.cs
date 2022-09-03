@@ -55,6 +55,7 @@ namespace LevelLoad
             var webRequest = new UnityWebRequest(levelCatalogEntry.ContentPath);
             webRequest.downloadHandler = new DownloadHandlerBuffer();
             webRequest.SendWebRequest();
+            Debug.Log($"Downloading remote level {levelCatalogEntry.LevelName}");
             await TaskUtilities.WaitUntil(() => webRequest.isDone);
             var fileContent = webRequest.downloadHandler.text;
             AddLevelFromString(fileContent);

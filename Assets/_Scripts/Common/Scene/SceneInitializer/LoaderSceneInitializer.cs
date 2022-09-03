@@ -15,16 +15,18 @@ namespace Common.Scene.SceneInitializer
         [SerializeField] private BoardItemSpriteCatalog _BoardItemSpriteCatalog;
         [SerializeField] private LevelLoadCatalog _LevelLoadCatalog;
         [SerializeField] private LoadingView _LoadingView;
+        [SerializeField] private Camera _Camera;
 
         protected override void InstallBindings()
         {
-            UIHelper2D.Initialize();
+            BindInstance(_Camera);
             BindInstance(_BoardItemSpriteCatalog);
             BindInstance(_LevelLoadCatalog);
             BindInstance(_LoadingView);
             BindInstance(new SceneLoadController());
             BindInstance(new LevelLoadController());
             BindInstance(new PlayerData());
+            UIHelper2D.Initialize();
         }
 
         protected override void Initialize()

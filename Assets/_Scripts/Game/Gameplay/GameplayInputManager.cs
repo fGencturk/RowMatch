@@ -5,7 +5,7 @@ using Utilities;
 
 namespace Game.Gameplay
 {
-    public class InputManager : MonoBehaviour, IInitializable
+    public class GameplayInputManager : MonoBehaviour, IInitializable
     {
         private BoardSlot _draggingBoardSlot;
         private Camera _camera;
@@ -15,7 +15,7 @@ namespace Game.Gameplay
 
         private void Awake()
         {
-            _camera = Camera.main;
+            _camera = ProjectContext.GetInstance<Camera>();
             _boardSlotLayerMask = LayerMask.GetMask(Constants.Layers.BoardSlot);
         }
 

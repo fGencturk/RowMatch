@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 543480324}
   - component: {fileID: 543480323}
   m_Layer: 0
-  m_Name: InputManager
+  m_Name: GameplayInputManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -348,7 +348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _GameScenePrefabsInstantiator: {fileID: 1182725953}
-  _InputManager: {fileID: 543480323}
+  _GameplayInputManager: {fileID: 543480323}
 --- !u!1001 &8012419765476667817
 PrefabInstance:
   m_ObjectHideFlags: 0

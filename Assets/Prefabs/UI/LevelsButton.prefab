@@ -315,6 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25a1a434a0e54b18b547250b8a995ce5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ConsumeEvents: 1
   _Container: {fileID: 2668702668220042797}
   _OnClick:
     m_PersistentCalls:

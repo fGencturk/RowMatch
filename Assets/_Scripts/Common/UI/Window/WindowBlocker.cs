@@ -14,7 +14,9 @@ namespace Common.UI.Window
         {
             _initialAlpha = _SpriteRenderer.color.a;
             gameObject.SetActive(false);
-            _SpriteRenderer.color = new Color(1f, 1f, 1f, 0f);
+            var color = _SpriteRenderer.color;
+            color.a = 0f;
+            _SpriteRenderer.color = color;
         }
 
         public void Show()
@@ -30,6 +32,5 @@ namespace Common.UI.Window
             _SpriteRenderer.DOFade(0f, FadeDuration)
                 .OnComplete(() => _SpriteRenderer.gameObject.SetActive(false));
         }
-        
     }
 }

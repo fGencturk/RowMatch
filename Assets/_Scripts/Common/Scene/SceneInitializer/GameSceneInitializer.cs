@@ -7,13 +7,13 @@ namespace Common.Scene.SceneInitializer
     {
 
         [SerializeField] private GameScenePrefabsInstantiator _GameScenePrefabsInstantiator;
-        [SerializeField] private InputManager _InputManager;
+        [SerializeField] private GameplayInputManager _GameplayInputManager;
         
         protected override void InstallBindings()
         { 
             _GameScenePrefabsInstantiator.InstantiatePrefabs(out var gameplayManager, out var gameplayUI);
             BindInstance(gameplayManager);
-            BindInstance(_InputManager);
+            BindInstance(_GameplayInputManager);
             BindInstance(new ScoreManager());
             BindInstance(new EndGameController());
         }
