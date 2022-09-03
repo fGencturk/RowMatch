@@ -51,7 +51,7 @@ namespace Common.UI.Window
             var window = _typeToWindow[data.Type];
             _Blocker.Interactable = window.CanBlockerTriggerHide;
             _Blocker.Show();
-            window.OnPreAppear();
+            window.OnPreAppear(data.Data);
             window.gameObject.SetActive(true);
             ActiveWindow = window;
         }

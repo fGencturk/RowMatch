@@ -27,6 +27,7 @@ namespace Game.Gameplay
 
         private void OnCloseWindowEvent(CloseWindowEvent data)
         {
+            EventManager.Unregister<CloseWindowEvent>(OnCloseWindowEvent);
             EventManager.Send(OpenMenuSceneEvent.Create(_gameEndEvent));
         }
     }

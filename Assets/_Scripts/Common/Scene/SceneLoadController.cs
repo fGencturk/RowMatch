@@ -3,8 +3,10 @@ using Common.Context;
 using Common.Event;
 using Common.Scene.Event;
 using Common.Scene.SceneInitializer;
+using Common.UI.Window.Event;
 using Game.Gameplay;
 using UI.Loader;
+using UI.Menu.Windows;
 using UnityEngine.SceneManagement;
 using Utilities;
 
@@ -33,6 +35,10 @@ namespace Common.Scene
         {
             await LoadSceneUnderLoadingScene(Constants.Scene.Menu);
             await _loadingView.Hide();
+            if (data.TriggeredFromGame)
+            {
+                EventManager.Send(OpenWindowEvent.Create<CelebrationWindow>(data.GameEndEvent));
+            }
         }
 
         private async Task LoadSceneUnderLoadingScene(string sceneName)

@@ -26,9 +26,9 @@ namespace UI.Menu.Windows
             _ScrollView.Initialize();
         }
 
-        public override void OnPreAppear()
+        public override void OnPreAppear(object data)
         {
-            base.OnPreAppear();
+            base.OnPreAppear(data);
             _ScrollView.TeleportToPosition(0f);
         }
     }

@@ -7,6 +7,6 @@ namespace Common.UI.Window
         public virtual bool CanBlockerTriggerHide => true;
         
         public virtual void Initialize() { }
-        public virtual void OnPreAppear() { }
+        public virtual void OnPreAppear(object data) { }
     }
 }

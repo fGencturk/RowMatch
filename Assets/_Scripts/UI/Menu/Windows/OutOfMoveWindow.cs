@@ -17,7 +17,7 @@ namespace UI.Menu.Windows
         
         [SerializeField] private TextMeshPro _Text;
         
-        public override void OnPreAppear()
+        public override void OnPreAppear(object data)
         {
             _Text.color = new Color(1f, 1f, 1f, 0);
             _Text.transform.localScale = Vector3.one * InitialScale;
