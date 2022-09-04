@@ -12,6 +12,23 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 3856369033923206985, guid: 1d9a012d3409fd941ba10ccd8c7004f9,
+        type: 3}
+      propertyPath: _WindowPrefabs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3856369033923206985, guid: 1d9a012d3409fd941ba10ccd8c7004f9,
+        type: 3}
+      propertyPath: _WindowPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 4071398996715468287, guid: 94928c683114a0f48a485170e06a50a6,
+        type: 3}
+    - target: {fileID: 3856369033923206985, guid: 1d9a012d3409fd941ba10ccd8c7004f9,
+        type: 3}
+      propertyPath: _WindowPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 3486261300162929100, guid: f7e7e5257859f6d4a8064d42e9ae0d76,
+        type: 3}
     - target: {fileID: 3856369033923206986, guid: 1d9a012d3409fd941ba10ccd8c7004f9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -71,6 +88,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WindowManagerMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 4390269533437497431, guid: 1d9a012d3409fd941ba10ccd8c7004f9,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -138655103
+      objectReference: {fileID: 0}
+    - target: {fileID: 4390269533437497431, guid: 1d9a012d3409fd941ba10ccd8c7004f9,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4390269533437497431, guid: 1d9a012d3409fd941ba10ccd8c7004f9,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d9a012d3409fd941ba10ccd8c7004f9, type: 3}

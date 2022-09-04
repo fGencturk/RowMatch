@@ -1,4 +1,5 @@
-﻿using Common.Context;
+﻿using System;
+using Common.Context;
 using Common.Event;
 using Common.UI;
 using Common.UI.LayoutGroup;
@@ -18,9 +19,16 @@ namespace UI.Menu.Windows
         [SerializeField] private RMVerticalLayoutGroup _VerticalLayoutGroup;
         [SerializeField] private RMVerticalScrollView _ScrollView;
         [SerializeField] private UIScaler _UIScaler;
+        [SerializeField] private LockView _LockViewPrefab;
+
+        private LockView _instantiatedLockView;
 
         public override void Initialize()
         {
+            // Instantiate in as sibling, so that when window is closed, lock view continues to be visible
+            _instantiatedLockView = Instantiate(_LockViewPrefab, transform.parent);
+            _instantiatedLockView.gameObject.SetActive(false);
+            
             var levelLoadController = ProjectContext.GetInstance<LevelLoadController>();
             foreach (var levelModel in levelLoadController.Levels)
             {
@@ -40,6 +48,14 @@ namespace UI.Menu.Windows
             {
                 var child = _VerticalLayoutGroup.transform.GetChild(gameEndEvent.LevelModel.LevelNumber - 1);
                 _ScrollView.TeleportToPosition(-child.localPosition.y);
+                if (gameEndEvent.PreviousHighScore <= 0 && gameEndEvent.HighScoreReached)
+                {
+                    var levelEntryTransform = _VerticalLayoutGroup.transform.GetChild(gameEndEvent.LevelModel.LevelNumber);
+                    if (levelEntryTransform != null && levelEntryTransform.TryGetComponent<LevelEntryView>(out var levelEntryView))
+                    {
+                        _instantiatedLockView.AnimateUnlock(levelEntryView);
+                    }
+                }
             }
             else
             {

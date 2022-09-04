@@ -54,6 +54,9 @@ TagManager:
   - name: Popup
     uniqueID: 4156312193
     locked: 0
+  - name: FloatingSprite
+    uniqueID: 3164523049
+    locked: 0
   - name: Loading
     uniqueID: 1203470505
     locked: 0

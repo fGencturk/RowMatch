@@ -6,7 +6,6 @@ using Common.Utility;
 using Game.Model;
 using TMPro;
 using UnityEngine;
-using Utilities;
 
 namespace UI.Menu
 {
@@ -19,6 +18,17 @@ namespace UI.Menu
         [Header("Button Containers")] 
         [SerializeField] private Transform _PlayContainer;
         [SerializeField] private Transform _LockedContainer;
+        
+        [Header("Lock")]
+        [SerializeField] private SpriteRenderer _LockRenderer;
+        [SerializeField] private SpriteRenderer _LockBackgroundRenderer;
+
+        #region Properties
+
+        public SpriteRenderer LockRenderer => _LockRenderer;
+        public SpriteRenderer LockBackgroundRenderer => _LockBackgroundRenderer;
+
+        #endregion
         
         private LevelModel _levelModel;
 

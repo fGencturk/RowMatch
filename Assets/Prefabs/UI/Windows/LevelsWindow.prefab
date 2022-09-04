@@ -310,6 +310,9 @@ MonoBehaviour:
   _VerticalLayoutGroup: {fileID: 7674215229221247439}
   _ScrollView: {fileID: 7674215229268746335}
   _UIScaler: {fileID: 1036446260069468641}
+  _LockViewPrefab: {fileID: 2877576076445946252, guid: a51fd0496a4d42046adca299937d16af,
+    type: 3}
+  Index: 0
 --- !u!114 &5105456331549887438
 MonoBehaviour:
   m_ObjectHideFlags: 0

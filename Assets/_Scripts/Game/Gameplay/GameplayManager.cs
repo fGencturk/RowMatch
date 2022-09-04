@@ -131,7 +131,7 @@ namespace Game.Gameplay
 
             if (gameEnded)
             {
-                EventManager.Send(GameEndEvent.Create(_levelModel, _scoreManager.CurrentScore, _scoreManager.HighScoreReached));
+                EventManager.Send(GameEndEvent.Create(_levelModel, _scoreManager.CurrentScore, _scoreManager.PreviousHighScore));
             }
         }
 

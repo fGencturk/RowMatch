@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b0463b70-6ed4-4f33-a5fa-25f9aa67371e" name="Changes" comment="" />
+    <list default="true" id="b0463b70-6ed4-4f33-a5fa-25f9aa67371e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/UI/Menu/LockView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/UI/Menu/LockView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/Utilities/Extensions/SpriteRendererExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/Utilities/Extensions/SpriteRendererExtensions.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.RowMatch/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RowMatch/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/LevelEntry.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/LevelEntry.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Windows/LevelsWindow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Windows/LevelsWindow.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Common/UI/UIHelper2D.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/Common/UI/UIHelper2D.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Game/Gameplay/Event/GameEndEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/Game/Gameplay/Event/GameEndEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Game/Gameplay/GameplayManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/Game/Gameplay/GameplayManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Game/Gameplay/ScoreManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/Game/Gameplay/ScoreManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/UI/Menu/LevelEntryView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/UI/Menu/LevelEntryView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/UI/Menu/Windows/LevelsWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/UI/Menu/Windows/LevelsWindow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Program Files/Unity/Hub/Editor/2019.4.14f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/EventSystem/EventSystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Program Files/Unity/Hub/Editor/2019.4.14f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/EventSystem/UIBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../Program Files/Unity/Hub/Editor/2019.4.14f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/UI/Core/Button.cs" root0="SKIP_HIGHLIGHTING" />
@@ -43,12 +54,15 @@
     <setting file="file://$PROJECT_DIR$/Assets/_Scripts/Game/Gameplay/Item/BoardItem.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.animation@3.2.5/Editor/LayoutOverlay/Manipulators/Draggable.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.animation@3.2.5/Editor/SkinningModule/VisibilityTool/VisibilityToolResizer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.animation@3.2.5/Editor/SpriteSkin/BoneGizmo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.path@2.0.6/Editor/IMGUI/GUIFramework/GUISystem.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.2d.path@2.0.6/Editor/IMGUI/PathEditor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.1.1/Scripts/Runtime/TMP_Text.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.1.1/Scripts/Runtime/TextMeshPro.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.textmeshpro@2.1.1/Scripts/Runtime/TextMeshProUGUI.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.2.17/Editor/TimelineEditor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.2.17/Editor/TimelineSelection.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.timeline@1.2.17/Editor/Window/TimelineWindow_Gui.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -89,10 +103,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="43352">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="18260">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="43352" />
+      <option name="pid" value="18260" />
       <option name="projectPathOnTarget" />
       <option name="selectedOptions">
         <list />
@@ -112,7 +126,8 @@
       <workItem from="1661856391100" duration="23129000" />
       <workItem from="1662051929337" duration="13839000" />
       <workItem from="1662136535173" duration="1209000" />
-      <workItem from="1662196183638" duration="30303000" />
+      <workItem from="1662196183638" duration="30888000" />
+      <workItem from="1662289438892" duration="4146000" />
     </task>
     <servers />
   </component>

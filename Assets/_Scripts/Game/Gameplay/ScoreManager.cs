@@ -10,10 +10,9 @@ namespace Game.Gameplay
 {
     public class ScoreManager : IInitializable, IDisposable
     {
-        public bool HighScoreReached { get; private set; }
         public int CurrentScore { get; private set; }
-
-        private int _previousHighScore;
+        public int PreviousHighScore { get; private set; }
+        
         private PlayerData _playerData;
         private int _currentLevelNumber;
 
@@ -33,8 +32,8 @@ namespace Game.Gameplay
         private void OnLevelStarted(LevelStartedEvent data)
         {
             _currentLevelNumber = data.LevelModel.LevelNumber;
-            _playerData.TryGetHighScore(data.LevelModel.LevelNumber, out _previousHighScore);
-            HighScoreReached = false;
+            _playerData.TryGetHighScore(data.LevelModel.LevelNumber, out var prevScore);
+            PreviousHighScore = prevScore;
         }
 
         private void OnPreSwapPerformedEvent(PreSwapPerformedEvent data)
@@ -42,9 +41,8 @@ namespace Game.Gameplay
             var gainedScore = data.CompletedBoardSlots.Sum(boardSlot => Constants.Gameplay.Score.ItemTypeToScore[boardSlot.ItemType]);
             
             CurrentScore += gainedScore;
-            if (CurrentScore > _previousHighScore)
+            if (CurrentScore > PreviousHighScore)
             {
-                HighScoreReached = true;
                 _playerData.SaveHighScore(_currentLevelNumber, CurrentScore);
             }
             
