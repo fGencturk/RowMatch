@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3856369033585328905, guid: 1d9a012d3409fd941ba10ccd8c7004f9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
     - target: {fileID: 3856369033923206985, guid: 1d9a012d3409fd941ba10ccd8c7004f9,
         type: 3}
       propertyPath: _WindowPrefabs.Array.size
@@ -77,6 +82,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WindowManagerGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 4390269533437497422, guid: 1d9a012d3409fd941ba10ccd8c7004f9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d9a012d3409fd941ba10ccd8c7004f9, type: 3}
