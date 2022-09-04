@@ -1,11 +1,13 @@
 ﻿using Common.Context;
+using Common.Event;
 using Common.Scene.SceneInitializer.Bindings;
+using Game.Gameplay.Event;
 using UnityEngine;
 using Utilities;
 
 namespace Game.Gameplay
 {
-    public class GameplayInputManager : MonoBehaviour, IInitializable
+    public class GameplayInputManager : MonoBehaviour, IInitializable, IDisposable
     {
         private BoardSlot _draggingBoardSlot;
         private Camera _camera;
@@ -22,6 +24,17 @@ namespace Game.Gameplay
         public void Initialize()
         {
             _gameplayManager = ProjectContext.GetInstance<GameplayManager>();
+            EventManager.Register<GameEndEvent>(OnGameEnd);
+        }
+
+        public void Dispose()
+        {
+            EventManager.Unregister<GameEndEvent>(OnGameEnd);
+        }
+
+        private void OnGameEnd(GameEndEvent obj)
+        {
+            enabled = false;
         }
 
         private void Update()

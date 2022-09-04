@@ -97,6 +97,8 @@ namespace Game.Gameplay
         public async void RequestSwipe(Vector2Int itemPosition, Vector2Int direction)
         {
             var boardSlot1 = _grid[itemPosition.y, itemPosition.x];
+
+            if (!boardSlot1.CanSwipe) return;
             
             if (!TryGetNeighborBoardSlot(itemPosition, direction, out var boardSlot2))
             {
@@ -104,7 +106,7 @@ namespace Game.Gameplay
                 return;
             }
 
-            if (!boardSlot1.CanSwipe || !boardSlot2.CanSwipe) return;
+            if (!boardSlot2.CanSwipe) return;
 
             var boardItem1 = boardSlot1.BoardItem;
             var boardItem2 = boardSlot2.BoardItem;
