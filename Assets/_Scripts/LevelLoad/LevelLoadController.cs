@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Common.Context;
 using Common.Enum;
 using Common.Scene.SceneInitializer.Bindings;
@@ -13,6 +14,8 @@ namespace LevelLoad
 {
     public class LevelLoadController : IInitializable
     {
+        private const int RetryAfterSeconds = 60;
+        
         public List<LevelModel> Levels = new List<LevelModel>();
         
         private RemoteLevelsCache _remoteLevelsCache;
@@ -57,11 +60,24 @@ namespace LevelLoad
             webRequest.SendWebRequest();
             Debug.Log($"Downloading remote level {levelCatalogEntry.LevelName}");
             await TaskUtilities.WaitUntil(() => webRequest.isDone);
+
+            if (webRequest.error != null)
+            {
+                Debug.LogError($"Downloading remote level {levelCatalogEntry.LevelName} failed, retying after {RetryAfterSeconds} seconds.\n{webRequest.error}");
+                RetryDownloadAfterDelay(levelCatalogEntry);
+                return;
+            }
+            
             var fileContent = webRequest.downloadHandler.text;
             AddLevelFromString(fileContent);
             _remoteLevelsCache.Save(levelCatalogEntry, fileContent);
             // TODO maybe fire an event here so that we can create view for recently downloaded level while player views levels popup
         }
 
+        private async void RetryDownloadAfterDelay(LevelCatalogEntry levelCatalogEntry)
+        {
+            await Task.Delay(RetryAfterSeconds * 1000);
+            DownloadRemoteContent(levelCatalogEntry);
+        }
     }
 }
