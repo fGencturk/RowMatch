@@ -54,9 +54,11 @@ namespace UI.Menu.Windows
             {
                 var child = _VerticalLayoutGroup.transform.GetChild(gameEndEvent.LevelModel.LevelNumber - 1);
                 _ScrollView.TeleportToPosition(-child.localPosition.y);
-                if (gameEndEvent.PreviousHighScore <= 0 && gameEndEvent.HighScoreReached)
+                var levelNumber = gameEndEvent.LevelModel.LevelNumber;
+                if (gameEndEvent.PreviousHighScore <= 0 && gameEndEvent.HighScoreReached && levelNumber < _VerticalLayoutGroup.transform.childCount)
                 {
-                    var levelEntryTransform = _VerticalLayoutGroup.transform.GetChild(gameEndEvent.LevelModel.LevelNumber);
+                    // TODO better way to get LevelEntryView?
+                    var levelEntryTransform = _VerticalLayoutGroup.transform.GetChild(levelNumber);
                     if (levelEntryTransform != null && levelEntryTransform.TryGetComponent<LevelEntryView>(out var levelEntryView))
                     {
                         _instantiatedLockView.AnimateUnlock(levelEntryView);

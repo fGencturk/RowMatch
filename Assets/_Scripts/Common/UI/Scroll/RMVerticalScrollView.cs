@@ -127,12 +127,8 @@ namespace Common.UI.Scroll
         public void TeleportToPosition(float position)
         {
             KillAllAnimations();
+            position = Mathf.Clamp(position, 0f, MaxHeight);
             _Content.localPosition = new Vector3(_Content.localPosition.x, position);
-        }
-
-        public void TeleportToElementIndex(int index)
-        {
-            
         }
 
         #region Animations
