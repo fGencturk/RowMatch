@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using Common.UI.Element;
 using DG.Tweening;
@@ -24,6 +25,8 @@ namespace Common.UI.Scroll
         [Header("Overshoot")]
         [SerializeField] private float _MaxOvershoot = 1.5f;
 
+        public Action<Vector2> OnScroll;
+
         private List<BaseUISizeProvider> _elements;
         private Vector3 _lastMousePosition;
         private Camera _camera;
@@ -36,7 +39,7 @@ namespace Common.UI.Scroll
         #region Properties
 
         private float ContentHeight => _contentUIElement.BaseSize.y;
-        private float ViewportHeight => _ViewPortSizeProvider.BaseSize.y;
+        public float ViewportHeight => _ViewPortSizeProvider.BaseSize.y;
 
         public float MaxHeight => Mathf.Max(0f, ContentHeight - ViewportHeight);
         public Transform Content => _Content;
@@ -50,13 +53,19 @@ namespace Common.UI.Scroll
             _camera = ProjectContext.GetInstance<Camera>();
         }
 
-        private void SetPosition(float velocity)
+        private void SetPositionWithVelocity(float velocity)
         {
             _velocity = velocity;
             ApplyGravityToVelocityIfOvershoot();
 
+            SetPosition(_Content.localPosition.y + _velocity);
+        }
+
+        private void SetPosition(float height)
+        {
             var localPosition = _Content.localPosition;
-            _Content.localPosition = new Vector3(localPosition.x, localPosition.y + _velocity);
+            _Content.localPosition = new Vector3(localPosition.x, height);
+            OnScroll?.Invoke(_Content.localPosition);
         }
 
         private void ApplyGravityToVelocityIfOvershoot()
@@ -102,7 +111,7 @@ namespace Common.UI.Scroll
         {
             var mouseWorldPosition = _camera.ScreenToWorldPoint(Input.mousePosition);
             var delta = _lastMousePosition - mouseWorldPosition;
-            SetPosition(-delta.y);
+            SetPositionWithVelocity(-delta.y);
             _lastMousePosition = mouseWorldPosition;
         }
 
@@ -128,7 +137,7 @@ namespace Common.UI.Scroll
         {
             KillAllAnimations();
             position = Mathf.Clamp(position, 0f, MaxHeight);
-            _Content.localPosition = new Vector3(_Content.localPosition.x, position);
+            SetPosition(position);
         }
 
         #region Animations
@@ -144,8 +153,9 @@ namespace Common.UI.Scroll
         public void SnapToPosition(float position)
         {
             KillAllAnimations();
+            
             _snapSequence = DOTween.Sequence()
-                .Append(_Content.DOLocalMoveY(position, _SnapDuration).SetEase(Ease.OutSine));
+                .Append(DOTween.To(() => _Content.localPosition.y, SetPosition, position, _SnapDuration).SetEase(Ease.OutSine));
         }
         
         private async void ContinueScrolling(float last)
@@ -164,7 +174,7 @@ namespace Common.UI.Scroll
             while (startTime + _ScrollDuration > Time.time)
             {
                 var requestedVelocity = _velocity;
-                SetPosition(requestedVelocity);
+                SetPositionWithVelocity(requestedVelocity);
                 var appliedVelocity = _velocity;
                 
                 var normalizedTime = (Time.time - startTime) / _ScrollDuration;

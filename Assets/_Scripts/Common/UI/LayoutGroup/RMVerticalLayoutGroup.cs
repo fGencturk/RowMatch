@@ -12,8 +12,9 @@ namespace Common.UI.LayoutGroup
         [SerializeField] private float _SpacingBetween = .1f;
         [SerializeField] private bool _AutoInitialize = true;
         
-        private List<BaseUISizeProvider> _elements;
         private Vector2 _size;
+        
+        public List<BaseUISizeProvider> Elements { get; private set; }
 
         private void Awake()
         {
@@ -25,13 +26,13 @@ namespace Common.UI.LayoutGroup
 
         public void Initialize()
         {
-            _elements = new List<BaseUISizeProvider>();
+            Elements = new List<BaseUISizeProvider>();
             for (int i = 0; i < transform.childCount; i++)
             {
                 var childTransform = transform.GetChild(i);
                 if (childTransform.TryGetComponent<BaseUISizeProvider>(out var scrollElement))
                 {
-                    _elements.Add(scrollElement);
+                    Elements.Add(scrollElement);
                 }
                 else
                 {
@@ -44,13 +45,13 @@ namespace Common.UI.LayoutGroup
         public void Rebuild()
         {
             var lastHeight = 0f;
-            foreach (var rmuiElement in _elements)
+            foreach (var rmuiElement in Elements)
             {
                 rmuiElement.transform.localPosition = new Vector3(0, -lastHeight);
                 lastHeight += rmuiElement.BaseSize.y + _SpacingBetween;
             }
 
-            _size = new Vector2(_elements.Count > 0 ? _elements[0].BaseSize.x : 0, lastHeight);
+            _size = new Vector2(Elements.Count > 0 ? Elements[0].BaseSize.x : 0, lastHeight);
         }
 
     }

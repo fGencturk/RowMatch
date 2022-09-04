@@ -312,7 +312,6 @@ MonoBehaviour:
   _UIScaler: {fileID: 1036446260069468641}
   _LockViewPrefab: {fileID: 2877576076445946252, guid: a51fd0496a4d42046adca299937d16af,
     type: 3}
-  Index: 0
 --- !u!114 &5105456331549887438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,6 +353,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Size: {x: 6, y: 6}
+--- !u!114 &167944382802398239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7674215229268746333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e05720501ee41a5b85ee26362b5a91f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _VerticalLayoutGroup: {fileID: 7674215229221247439}
+  _ScrollView: {fileID: 7674215229268746335}
 --- !u!1 &8016532832715547272
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,7 +556,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8032630260506526082}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.43384615, y: 0.45333338, z: 0}
+  m_LocalPosition: {x: 0.43384615, y: 0.45333338, z: -5}
   m_LocalScale: {x: 0.15384616, y: 0.13333334, z: 1}
   m_Children:
   - {fileID: 8032630259996564018}
@@ -697,6 +710,12 @@ PrefabInstance:
       objectReference: {fileID: 2207134803806075139}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4fb137ca74255447b9ece579ea6b409, type: 3}
+--- !u!1 &7674215229268746333 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3709565819576849485, guid: c4fb137ca74255447b9ece579ea6b409,
+    type: 3}
+  m_PrefabInstance: {fileID: 6483860073070982160}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7674215229268746332 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3709565819576849484, guid: c4fb137ca74255447b9ece579ea6b409,
@@ -709,7 +728,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 6483860073070982160}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 7674215229268746333}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3b1fec3dffe74f8f9b4785584fc5b59c, type: 3}
