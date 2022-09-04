@@ -1,11 +1,11 @@
-﻿using System;
-using Common.Context;
+﻿using Common.Context;
 using Common.Event;
 using Common.UI;
 using Common.UI.LayoutGroup;
 using Common.UI.Scroll;
 using Common.UI.Window;
 using Common.UI.Window.Event;
+using DG.Tweening;
 using Game.Gameplay.Event;
 using LevelLoad;
 using UnityEngine;
@@ -22,6 +22,11 @@ namespace UI.Menu.Windows
         [SerializeField] private LockView _LockViewPrefab;
 
         private LockView _instantiatedLockView;
+        private Vector3 _initialScale;
+
+        private const float InitialScaleMultiplier = .98f;
+        private const float OverShootScaleMultiplier = 1.02f;
+        private const float OneWayScaleDuration = .1f;
 
         public override void Initialize()
         {
@@ -38,6 +43,7 @@ namespace UI.Menu.Windows
             _VerticalLayoutGroup.Initialize();
             _ScrollView.Initialize();
             _UIScaler.Rebuild();
+            _initialScale = transform.localScale;
         }
 
         public override void OnPreAppear(object data)
@@ -61,7 +67,23 @@ namespace UI.Menu.Windows
             {
                 _ScrollView.TeleportToPosition(0f);
             }
-            
+
+            AnimateAppear();
+        }
+
+        private void AnimateAppear()
+        {
+            transform.localScale = _initialScale * InitialScaleMultiplier;
+            var appearSeq = DOTween.Sequence()
+                .Append(transform.DOScale(_initialScale * OverShootScaleMultiplier, OneWayScaleDuration))
+                .Append(transform.DOScale(_initialScale * InitialScaleMultiplier, OneWayScaleDuration))
+                .Append(transform.DOScale(_initialScale, OneWayScaleDuration))
+                .SetTarget(transform);
+        }
+
+        private void OnDisable()
+        {
+            transform.DOKill();
         }
 
         public void _Hide()
