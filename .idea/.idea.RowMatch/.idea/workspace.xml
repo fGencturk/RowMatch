@@ -2,20 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b0463b70-6ed4-4f33-a5fa-25f9aa67371e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/UI/Menu/LockView.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/UI/Menu/LockView.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/Utilities/Extensions/SpriteRendererExtensions.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/_Scripts/Utilities/Extensions/SpriteRendererExtensions.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.RowMatch/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RowMatch/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/LevelEntry.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/LevelEntry.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/UI/Windows/LevelsWindow.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/UI/Windows/LevelsWindow.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Common/UI/UIHelper2D.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/Common/UI/UIHelper2D.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Game/Gameplay/Event/GameEndEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/Game/Gameplay/Event/GameEndEvent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Game/Gameplay/GameplayManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/Game/Gameplay/GameplayManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/Game/Gameplay/ScoreManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/Game/Gameplay/ScoreManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_Scripts/UI/Menu/LevelEntryView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/UI/Menu/LevelEntryView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/StarMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/StarMaterial.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/UI/star-icon-0.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/UI/star-icon-0.png.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_Scripts/UI/Menu/Windows/LevelsWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_Scripts/UI/Menu/Windows/LevelsWindow.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +117,7 @@
       <workItem from="1662051929337" duration="13839000" />
       <workItem from="1662136535173" duration="1209000" />
       <workItem from="1662196183638" duration="30888000" />
-      <workItem from="1662289438892" duration="4146000" />
+      <workItem from="1662289438892" duration="4938000" />
     </task>
     <servers />
   </component>
