@@ -42,6 +42,8 @@ namespace Common.Scene.SceneInitializer
                 Screen.autorotateToLandscapeLeft = false;
                 Screen.autorotateToLandscapeRight = false;
             }
+
+            Application.targetFrameRate = 60;
         }
 
         protected override void Initialize()
