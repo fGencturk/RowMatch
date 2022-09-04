@@ -82,18 +82,15 @@ namespace Game.Gameplay
             boardSlot.BoardItem.AnimateNotPossibleSwipe(direction);
         }
 
-        private bool CanSwipe(Vector2Int itemPosition, Vector2Int direction)
+        private bool TryGetNeighborBoardSlot(Vector2Int itemPosition, Vector2Int direction, out BoardSlot neighbor)
         {
+            neighbor = null;
             var otherItemPosition = itemPosition + direction;
             
             if (otherItemPosition.x < 0 || otherItemPosition.x >= _levelModel.GridWidth) return false;
             if (otherItemPosition.y < 0 || otherItemPosition.y >= _levelModel.GridHeight) return false;
 
-            var boardSlot1 = _grid[itemPosition.y, itemPosition.x];
-            var boardSlot2 = _grid[otherItemPosition.y, otherItemPosition.x];
-
-            if (!boardSlot1.CanSwipe || !boardSlot2.CanSwipe) return false;
-
+            neighbor = _grid[otherItemPosition.y, otherItemPosition.x];
             return true;
         }
 
@@ -101,14 +98,13 @@ namespace Game.Gameplay
         {
             var boardSlot1 = _grid[itemPosition.y, itemPosition.x];
             
-            if (!CanSwipe(itemPosition, direction))
+            if (!TryGetNeighborBoardSlot(itemPosition, direction, out var boardSlot2))
             {
                 OnNotPossibleSwipe(boardSlot1, direction);
                 return;
             }
-            
-            var otherItemPosition = itemPosition + direction;
-            var boardSlot2 = _grid[otherItemPosition.y, otherItemPosition.x];
+
+            if (!boardSlot1.CanSwipe || !boardSlot2.CanSwipe) return;
 
             var boardItem1 = boardSlot1.BoardItem;
             var boardItem2 = boardSlot2.BoardItem;
