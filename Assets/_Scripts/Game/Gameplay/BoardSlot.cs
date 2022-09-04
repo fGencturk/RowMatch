@@ -51,6 +51,7 @@ namespace Game.Gameplay
         public async Task AnimateItemToOrigin()
         {
             IsAnimating = true;
+            BoardItem.transform.DOKill();
             var anim = BoardItem.transform.DOLocalMove(Vector3.zero, SwipeDuration).SetEase(Ease.InOutCubic);
             await anim.ToTask();
             IsAnimating = false;

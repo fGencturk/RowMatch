@@ -77,17 +77,38 @@ namespace Game.Gameplay
             EventManager.Send(LevelStartedEvent.Create(levelModel));
         }
 
-        public async void RequestSwipe(Vector2Int itemPosition, Vector2Int direction)
+        private void OnNotPossibleSwipe(BoardSlot boardSlot, Vector2Int direction)
+        {
+            boardSlot.BoardItem.AnimateNotPossibleSwipe(direction);
+        }
+
+        private bool CanSwipe(Vector2Int itemPosition, Vector2Int direction)
         {
             var otherItemPosition = itemPosition + direction;
             
-            if (otherItemPosition.x < 0 || otherItemPosition.x >= _levelModel.GridWidth) return;
-            if (otherItemPosition.y < 0 || otherItemPosition.y >= _levelModel.GridHeight) return;
+            if (otherItemPosition.x < 0 || otherItemPosition.x >= _levelModel.GridWidth) return false;
+            if (otherItemPosition.y < 0 || otherItemPosition.y >= _levelModel.GridHeight) return false;
 
             var boardSlot1 = _grid[itemPosition.y, itemPosition.x];
             var boardSlot2 = _grid[otherItemPosition.y, otherItemPosition.x];
 
-            if (!boardSlot1.CanSwipe || !boardSlot2.CanSwipe) return;
+            if (!boardSlot1.CanSwipe || !boardSlot2.CanSwipe) return false;
+
+            return true;
+        }
+
+        public async void RequestSwipe(Vector2Int itemPosition, Vector2Int direction)
+        {
+            var boardSlot1 = _grid[itemPosition.y, itemPosition.x];
+            
+            if (!CanSwipe(itemPosition, direction))
+            {
+                OnNotPossibleSwipe(boardSlot1, direction);
+                return;
+            }
+            
+            var otherItemPosition = itemPosition + direction;
+            var boardSlot2 = _grid[otherItemPosition.y, otherItemPosition.x];
 
             var boardItem1 = boardSlot1.BoardItem;
             var boardItem2 = boardSlot2.BoardItem;

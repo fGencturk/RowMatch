@@ -43,8 +43,9 @@ namespace Game.Gameplay
 
         private void SwipeDraggingBoardSlot(Vector2Int direction)
         {
+            _draggingBoardSlot.BoardItem.DisableHighlight();
             _gameplayManager.RequestSwipe(_draggingBoardSlot.Index, direction);
-            OnEndDrag();
+            _draggingBoardSlot = null;
         }
 
         private void OnBeginDrag(Vector2 screenPosition)
@@ -55,6 +56,7 @@ namespace Game.Gameplay
             if (!raycastHit2D.collider.TryGetComponent<BoardSlot>(out var boardSlot)) return;
 
             _draggingBoardSlot = boardSlot;
+            _draggingBoardSlot.BoardItem.Highlight();
             _initialTouchPosition = screenPosition;
         }
 
@@ -84,6 +86,11 @@ namespace Game.Gameplay
 
         private void OnEndDrag()
         {
+            if (_draggingBoardSlot != null)
+            {
+                _draggingBoardSlot.BoardItem.DisableHighlight();
+            }
+            
             _draggingBoardSlot = null;
         }
     }
