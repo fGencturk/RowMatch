@@ -74,11 +74,11 @@ namespace UI.Menu.Windows
 
             if (data is GameEndEvent gameEndEvent)
             {
-                var child = _VerticalLayoutGroup.transform.GetChild(gameEndEvent.LevelModel.LevelNumber - 1);
-                _ScrollView.TeleportToPosition(-child.localPosition.y);
+                var finishedLevelEntry = _levelEntryViews[gameEndEvent.LevelModel.LevelNumber];
+                _ScrollView.TeleportToPosition(-finishedLevelEntry.transform.localPosition.y);
                 if (gameEndEvent.PreviousHighScore <= 0 && gameEndEvent.HighScoreReached)
                 {
-                    var unlockedLevelNumber = gameEndEvent.LevelModel.LevelNumber;
+                    var unlockedLevelNumber = gameEndEvent.LevelModel.LevelNumber + 1;
                     if (_levelEntryViews.ContainsKey(unlockedLevelNumber))
                     {
                         var unlockedLevelEntryView = _levelEntryViews[unlockedLevelNumber];
