@@ -265,8 +265,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 558175239588087521}
-  - component: {fileID: 4687930410804743836}
   - component: {fileID: 6467162582574486199}
+  - component: {fileID: 7946406171667778814}
   m_Layer: 0
   m_Name: LevelEntry
   m_TagString: Untagged
@@ -289,20 +289,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4687930410804743836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 558175239588087526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84950c7d01554fbdbb4e7e9faa8ef1f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _SpriteRenderer: {fileID: 558175239639253633}
-  _Padding: {x: 0, y: 0}
 --- !u!114 &6467162582574486199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -321,6 +307,19 @@ MonoBehaviour:
   _LockedContainer: {fileID: 5809688012220344892}
   _LockRenderer: {fileID: 332176561641283689}
   _LockBackgroundRenderer: {fileID: 8256303068705491081}
+--- !u!114 &7946406171667778814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558175239588087526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dbd707abc9546fea151445cd4e6e697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Size: {x: 6, y: 1}
 --- !u!1 &558175239639253636
 GameObject:
   m_ObjectHideFlags: 0

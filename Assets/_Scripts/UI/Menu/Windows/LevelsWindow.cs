@@ -1,4 +1,5 @@
-﻿using Common.Context;
+﻿using System.Collections.Generic;
+using Common.Context;
 using Common.Event;
 using Common.UI;
 using Common.UI.LayoutGroup;
@@ -14,6 +15,9 @@ namespace UI.Menu.Windows
 {
     public class LevelsWindow : Window
     {
+        private const float InitialScaleMultiplier = .98f;
+        private const float OverShootScaleMultiplier = 1.02f;
+        private const float OneWayScaleDuration = .1f;
 
         [SerializeField] private LevelEntryView _LevelEntryViewPrefab;
         [SerializeField] private RMVerticalLayoutGroup _VerticalLayoutGroup;
@@ -23,45 +27,62 @@ namespace UI.Menu.Windows
 
         private LockView _instantiatedLockView;
         private Vector3 _initialScale;
-
-        private const float InitialScaleMultiplier = .98f;
-        private const float OverShootScaleMultiplier = 1.02f;
-        private const float OneWayScaleDuration = .1f;
+        private Dictionary<int, LevelEntryView> _levelEntryViews;
+        private int _lastInstantiatedLevelNumber = 0;
 
         public override void Initialize()
         {
             // Instantiate in as sibling, so that when window is closed, lock view continues to be visible
             _instantiatedLockView = Instantiate(_LockViewPrefab, transform.parent);
             _instantiatedLockView.gameObject.SetActive(false);
+            _levelEntryViews = new Dictionary<int, LevelEntryView>();
             
-            var levelLoadController = ProjectContext.GetInstance<LevelLoadController>();
-            foreach (var levelModel in levelLoadController.Levels)
-            {
-                var levelView = Instantiate(_LevelEntryViewPrefab, Vector3.zero, Quaternion.identity, _ScrollView.Content);
-                levelView.Initialize(levelModel);
-            }
+            InstantiateLevelViews();
             _VerticalLayoutGroup.Initialize();
             _ScrollView.Initialize();
             _UIScaler.Rebuild();
             _initialScale = transform.localScale;
         }
 
+        private void InstantiateLevelViews()
+        {
+            var levelLoadController = ProjectContext.GetInstance<LevelLoadController>();
+            var levels = levelLoadController.Levels;
+
+            var nextLevelIndex = _lastInstantiatedLevelNumber + 1;
+            if (nextLevelIndex > levels.Count) return;
+            
+            for (var i = nextLevelIndex; i <= levels.Count; i++)
+            {
+                if (!levels.ContainsKey(i)) return;
+                var levelModel = levels[i];
+                
+                var levelView = Instantiate(_LevelEntryViewPrefab, Vector3.zero, Quaternion.identity, _ScrollView.Content);
+                levelView.Initialize(levelModel);
+                _levelEntryViews.Add(levelModel.LevelNumber, levelView);
+                _lastInstantiatedLevelNumber++;
+            }
+            _VerticalLayoutGroup.Initialize();
+        }
+
         public override void OnPreAppear(object data)
         {
+            // If new levels are downloaded in the background, try instantiate new views
+            InstantiateLevelViews();
+            
             base.OnPreAppear(data);
 
             if (data is GameEndEvent gameEndEvent)
             {
                 var child = _VerticalLayoutGroup.transform.GetChild(gameEndEvent.LevelModel.LevelNumber - 1);
                 _ScrollView.TeleportToPosition(-child.localPosition.y);
-                var levelNumber = gameEndEvent.LevelModel.LevelNumber;
-                if (gameEndEvent.PreviousHighScore <= 0 && gameEndEvent.HighScoreReached && levelNumber < _VerticalLayoutGroup.transform.childCount)
+                if (gameEndEvent.PreviousHighScore <= 0 && gameEndEvent.HighScoreReached)
                 {
-                    // TODO better way to get LevelEntryView?
-                    var levelEntryTransform = _VerticalLayoutGroup.transform.GetChild(levelNumber);
-                    if (levelEntryTransform != null && levelEntryTransform.TryGetComponent<LevelEntryView>(out var levelEntryView))
+                    var unlockedLevelNumber = gameEndEvent.LevelModel.LevelNumber;
+                    if (_levelEntryViews.ContainsKey(unlockedLevelNumber))
                     {
-                        _instantiatedLockView.AnimateUnlock(levelEntryView);
+                        var unlockedLevelEntryView = _levelEntryViews[unlockedLevelNumber];
+                        _instantiatedLockView.AnimateUnlock(unlockedLevelEntryView);
                     }
                 }
             }

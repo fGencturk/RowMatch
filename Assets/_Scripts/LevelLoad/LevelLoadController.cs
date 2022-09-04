@@ -16,7 +16,7 @@ namespace LevelLoad
     {
         private const int RetryAfterSeconds = 60;
         
-        public List<LevelModel> Levels = new List<LevelModel>();
+        public Dictionary<int, LevelModel> Levels = new Dictionary<int, LevelModel>();
         
         private RemoteLevelsCache _remoteLevelsCache;
 
@@ -50,7 +50,7 @@ namespace LevelLoad
         private void AddLevelFromString(string levelString)
         {
             var levelModel = LevelDataDeserializer.LoadFromString(levelString);
-            Levels.Add(levelModel);
+            Levels.Add(levelModel.LevelNumber, levelModel);
         }
 
         private async void DownloadRemoteContent(LevelCatalogEntry levelCatalogEntry)
